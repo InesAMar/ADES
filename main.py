@@ -19,7 +19,8 @@ from imblearn.over_sampling import ADASYN
 from imblearn.over_sampling import RandomOverSampler
 
 # Classifier Imports
-from sklearn.tree import DecisionTreeClassifier, RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
@@ -40,6 +41,7 @@ wantFunc = True
 wantMetrics = True
 wantComplexity = True
 trainData, testData = getDataToTrainTest(path, wantFunc, wantMetrics, wantComplexity)
+testData.to_csv(os.path.join(compPath,'test_mergedfile.csv'), index=False)
 
 graphsOfData(trainData, path = path)
 
@@ -94,24 +96,29 @@ for classifier in listOfModels:
         
         
     for dictArgsClassfier in listOfArgs:
-        outData = testData
+        outData= pd.read_csv(os.path.join(compPath,'test_mergedfile.csv'))
         # Train, Test and obtain main results of classifier
         modelToTest, meanAcc, meanRocAUC, meanf1Sco = trainAndTestModel(classifier, 
-                                                                        trainData.drop(['functionId','bug']), 
+                                                                        trainData.drop(columns=['functionId','bug']), 
                                                                         trainData['bug'],
                                                                         k_fold,
                                                                         dictArgsClassfier,
+                                                                        strategy,
                                                                         dictArgsSamp)
         
         # Agregate relevant data about the results and process characteristics on dictionary object 
-        dataToSave={'SMOTE k':kSmote,
-                    'FeatureSelection': "PCA",
-                    'nFeat': nFeat,
+        dataToSave={'sampling strat':strategy.__name__,
+                    'kSmote':"notUsed",
+                    'FeatureSelection': "PCA - NO",
+                    'nFeat': 'all',
                     'Classifier':type(modelToTest).__name__,	
                     'ClassifierHyperP':str(dictArgsClassfier),	
-                    'Accuracy': meanAcc,
-                    'F1-measure': meanf1Sco,	
-                    'ROC-AUC': meanRocAUC}
+                    'Accuracy': meanAcc[0],
+                    'Std Acc': meanAcc[1],
+                    'F1-measure': meanf1Sco[0],
+                    'Std F1': meanf1Sco[1],	
+                    'ROC-AUC': meanRocAUC[0],
+                    'Std ROC-AUC': meanRocAUC[1]}
         
         # Save the data onto csv file for posterior processing
         dataToSave = pd.DataFrame([dataToSave])

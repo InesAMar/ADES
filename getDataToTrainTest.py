@@ -33,6 +33,8 @@ def getDataToTrainTest(path,wantFunc:bool, wantMetrics:bool, wantComplexity:bool
         file_test= pd.read_csv(os.path.join(compPath,file+'_comp.csv')) 
         if i!=1:
             file_train.drop('functionId',axis=1, inplace=True)
+            file_test.drop('functionId',axis=1, inplace=True)
+            
         trainData=pd.concat([trainData,file_train],axis=1)
         testData=pd.concat([testData,file_test],axis=1)
         i=0

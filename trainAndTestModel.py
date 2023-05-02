@@ -11,9 +11,9 @@ from typing import Callable, Any
 from sklearn.model_selection import StratifiedKFold
 from sklearn.ensemble import AdaBoostClassifier
 
-def trainAndTestModel(typeOfModel:Callable[... , Any], X, y,kSmote, k_fold, dictArgsClassfier, overOrUnder:Callable[...,Any]=None, dictArgsSamp=None):
+def trainAndTestModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsClassfier, overOrUnder:Callable[...,Any]=None, dictArgsSamp=None):
     # Split the data into train and test sets with equal class proportions
-    splitter = StratifiedKFold(n_splits = k_fold, random_state=42)
+    splitter = StratifiedKFold(n_splits = k_fold)
     
     accuracies=[]
     rocAUCs=[]
@@ -21,8 +21,8 @@ def trainAndTestModel(typeOfModel:Callable[... , Any], X, y,kSmote, k_fold, dict
     bestAuc=0.0
     for train_indices, test_indices in splitter.split(X, y):
         
-        X_train, y_train = X[train_indices], y[train_indices]
-        X_test, y_test = X[test_indices], y[test_indices]
+        X_train, y_train = X.loc[train_indices], y.loc[train_indices]
+        X_test, y_test = X.loc[test_indices], y.loc[test_indices]
 
         if overOrUnder is not None:
             rus = overOrUnder(**dictArgsSamp)
@@ -46,7 +46,7 @@ def trainAndTestModel(typeOfModel:Callable[... , Any], X, y,kSmote, k_fold, dict
         rocAUCs.append(roc_auc)
         if roc_auc>bestAuc:
           bestModel = modelToTrain
-          bestAuc= roc_auc
+          bestAuc = roc_auc
 
         f1Score = f1_score(y_test, outPrediction)
         f1Scores.append(f1Score)
@@ -61,9 +61,9 @@ def trainAndTestModel(typeOfModel:Callable[... , Any], X, y,kSmote, k_fold, dict
     return bestModel, [meanAcc,stdAcc], [meanRocAuc,stdRocAuc], [meanf1Score,stdf1Score]
 
 
-def trainAndTestEnsembleModel(typeOfModel:Callable[... , Any],overOrUnder:Callable[...,Any], X, y, k_fold, dictArgsClassfier,dictArgsSamp):
+def trainAndTestEnsembleModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsClassfier, overOrUnder:Callable[...,Any]=None, dictArgsSamp=None):
     # Split the data into train and test sets with equal class proportions
-    splitter = StratifiedKFold(n_splits = k_fold, random_state=42)
+    splitter = StratifiedKFold(n_splits = k_fold)
     
     accuracies=[]
     rocAUCs=[]
@@ -74,10 +74,10 @@ def trainAndTestEnsembleModel(typeOfModel:Callable[... , Any],overOrUnder:Callab
         X_train, y_train = X[train_indices], y[train_indices]
         X_test, y_test = X[test_indices], y[test_indices]
         
-        
-        rus = overOrUnder(**dictArgsSamp)
-
-        X_train, y_train = rus.fit_resample(X_train, y_train)
+        if overOrUnder is not None:
+            rus = overOrUnder(**dictArgsSamp)
+    
+            X_train, y_train = rus.fit_resample(X_train, y_train)
         
         # define model
         modelToTrain= typeOfModel(**dictArgsClassfier)
