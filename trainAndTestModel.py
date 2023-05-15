@@ -11,7 +11,7 @@ from typing import Callable, Any
 from sklearn.model_selection import StratifiedKFold
 from sklearn.ensemble import AdaBoostClassifier
 
-def trainAndTestModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsClassfier, overOrUnder:Callable[...,Any]=None, dictArgsSamp=None):
+def trainAndTestModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsClassfier, overOrUnder:Callable[...,Any]=None, dictArgsSamp=None,transform=None):
     # Split the data into train and test sets with equal class proportions
     splitter = StratifiedKFold(n_splits = k_fold)
     
@@ -23,7 +23,14 @@ def trainAndTestModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsCla
         
         X_train, y_train = X.loc[train_indices], y.loc[train_indices]
         X_test, y_test = X.loc[test_indices], y.loc[test_indices]
-
+    
+        mean = X_train.mean()                           
+        std_dev = X_train.std()
+        if transform is not None:
+            # z-score transformation
+            X_train = (X_train - mean) / std_dev
+            X_test = (X_test - mean) / std_dev
+            
         if overOrUnder is not None:
             rus = overOrUnder(**dictArgsSamp)
     
@@ -45,6 +52,8 @@ def trainAndTestModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsCla
         roc_auc = roc_auc_score(y_test, outPrediction)
         rocAUCs.append(roc_auc)
         if roc_auc>bestAuc:
+          bestMean = mean 
+          bestStd = std_dev
           bestModel = modelToTrain
           bestAuc = roc_auc
 
@@ -58,7 +67,7 @@ def trainAndTestModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsCla
     meanf1Score=sum(f1Scores)/len(f1Scores)
     stdf1Score =np.std(f1Scores)
     
-    return bestModel, [meanAcc,stdAcc], [meanRocAuc,stdRocAuc], [meanf1Score,stdf1Score]
+    return bestModel, [meanAcc,stdAcc], [meanRocAuc,stdRocAuc], [meanf1Score,stdf1Score], bestMean, bestStd
 
 
 def trainAndTestEnsembleModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsClassfier, overOrUnder:Callable[...,Any]=None, dictArgsSamp=None):

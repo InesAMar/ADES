@@ -37,19 +37,22 @@ devPath = os.path.join(path, 'dev')
 
 
 # Data Selection, Select which csv's to use (Functions, Metrics, Complexity)
-wantFunc = True
-wantMetrics = True
+wantFunc = False
+wantMetrics = False
 wantComplexity = True
-trainData, testData = getDataToTrainTest(path, wantFunc, wantMetrics, wantComplexity)
+trainData, testData, dataTested = getDataToTrainTest(path, wantFunc, wantMetrics, wantComplexity,1)
 testData.to_csv(os.path.join(compPath,'test_mergedfile.csv'), index=False)
 
 graphsOfData(trainData, path = path)
 
 # Parameters for Model Train and Test 
-k_fold=10
+k_fold=3
 test_percentage=1/k_fold
 nFeat=20 # For PCA if used 
 kSmote=10 # For 
+
+#Data transformation
+
 
 # Choose Sampling Strategy by choosing the index in "strategy"
 strategies=[RandomUnderSampler,
@@ -57,7 +60,7 @@ strategies=[RandomUnderSampler,
             SMOTE,
             ADASYN]
 
-strategy = strategies[0]
+strategy = strategies[2]
 
 sampling_strategy = 1.0 # ratio between classes
 if strategy == SMOTE:
@@ -97,17 +100,21 @@ for classifier in listOfModels:
         
     for dictArgsClassfier in listOfArgs:
         outData= pd.read_csv(os.path.join(compPath,'test_mergedfile.csv'))
+        outPrediction2 = outData['functionId']
         # Train, Test and obtain main results of classifier
-        modelToTest, meanAcc, meanRocAUC, meanf1Sco = trainAndTestModel(classifier, 
+        modelToTest, meanAcc, meanRocAUC, meanf1Sco, mean, std = trainAndTestModel(classifier, 
                                                                         trainData.drop(columns=['functionId','bug']), 
                                                                         trainData['bug'],
                                                                         k_fold,
                                                                         dictArgsClassfier,
                                                                         strategy,
-                                                                        dictArgsSamp)
+                                                                        dictArgsSamp,
+                                                                        True)
         
+        outData=(outData.drop(columns = ['functionId'])-mean)/std
         # Agregate relevant data about the results and process characteristics on dictionary object 
-        dataToSave={'sampling strat':strategy.__name__,
+        dataToSave={'Data tested': dataTested,
+                    'sampling strat':strategy.__name__,
                     'kSmote':"notUsed",
                     'FeatureSelection': "PCA - NO",
                     'nFeat': 'all',
@@ -122,18 +129,19 @@ for classifier in listOfModels:
         
         # Save the data onto csv file for posterior processing
         dataToSave = pd.DataFrame([dataToSave])
-        dataToSave.to_csv(os.path.join(devPath,"final_results.csv"), sep=';', mode='a', index=False, header=False)
+        dataToSave.to_csv(os.path.join(devPath,"ranz-score_final_results.csv"), mode='a',sep=';', index=False, header=True)
 
         rowcount=0
-        for row in open(os.path.join(devPath,"final_results.csv")):
+        for row in open(os.path.join(devPath,"ranz-score_final_results.csv")):
           rowcount+= 1
         #printing the result
         print("Number of lines present:-", rowcount) 
 
         #outData2 = pca.transform(outData.drop(columns = ['functionId']))
-        outPrediction = modelToTest.predict(outData.drop(columns = ['functionId']))
+        outPrediction = modelToTest.predict(outData)
 
         outData['bug'] = outPrediction
+        outData['functionId'] = outPrediction2
         outData = outData[['functionId','bug']]
-        outData.to_csv(os.path.join(compPath,f'Try_{rowcount}_predictions.csv'), sep=';', index=False)
+        outData.to_csv(os.path.join(compPath,f'ranz-score_Try_{rowcount}_predictions.csv'), sep=';', index=False)
 

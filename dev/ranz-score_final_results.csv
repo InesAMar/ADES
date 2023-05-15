@@ -1,0 +1,72 @@
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomOverSampler;notUsed;PCA - NO;all;SVC;{'kernel': 'sigmoid', 'C': 0.7, 'probability': True};0.7027567567567568;0.03519487183280613;0.47228162435731413;0.0437338881137934;0.6744374634716539;0.03962561216488266
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomOverSampler;notUsed;PCA - NO;all;SVC;{'kernel': 'sigmoid', 'C': 0.9, 'probability': True};0.6866666666666665;0.034070161594072036;0.45359808382809447;0.04408593016979262;0.6596398305084745;0.038247001317762416
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomOverSampler;notUsed;PCA - NO;all;SVC;{'kernel': 'sigmoid', 'probability': True};0.6880540540540541;0.03302875702600046;0.45777361724392185;0.04272923776368012;0.6628086645236705;0.03754016665207193
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomOverSampler;notUsed;PCA - NO;all;SVC;{'C': 0.7, 'probability': True};0.7831171171171171;0.051351923499262445;0.5716624475498403;0.06680627263868531;0.7392570134424312;0.04491839911202085
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomOverSampler;notUsed;PCA - NO;all;SVC;{'C': 0.9, 'probability': True};0.7911711711711712;0.05066569271038569;0.5807863140421279;0.0654165460779086;0.744385593220339;0.04433409418007439
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomOverSampler;notUsed;PCA - NO;all;SVC;{'probability': True};0.7898558558558558;0.04610184115777282;0.5779490255341078;0.05995632936542339;0.743552746931619;0.043003580014403985
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomOverSampler;notUsed;PCA - NO;all;KNeighborsClassifier;{'n_neighbors': 5};0.6906666666666667;0.03695739270975335;0.46865886623915565;0.03381189876570197;0.671292372881356;0.029228228806675773
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomOverSampler;notUsed;PCA - NO;all;KNeighborsClassifier;{'n_neighbors': 10};0.7362702702702703;0.03796700817718118;0.4991426711999353;0.046069886701483015;0.6912149327878435;0.03552074590194937
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomOverSampler;notUsed;PCA - NO;all;KNeighborsClassifier;{'n_neighbors': 15};0.746954954954955;0.046853374458598156;0.5343031501568086;0.07017211570151644;0.7207846288720047;0.056994654081293415
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomOverSampler;notUsed;PCA - NO;all;RandomForestClassifier;{'max_depth': 10, 'min_samples_leaf': 30, 'criterion': 'entropy'};0.8018378378378379;0.04143837043066916;0.6027841005438036;0.054890736840874754;0.7625383547632962;0.0365643034685901
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomOverSampler;notUsed;PCA - NO;all;RandomForestClassifier;{'max_depth': 10, 'min_samples_leaf': 30, 'criterion': 'log_loss'};0.8017837837837838;0.04338149446676866;0.6031686357967599;0.05664010141597676;0.7624945207481005;0.03745573337932011
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomOverSampler;notUsed;PCA - NO;all;RandomForestClassifier;{'max_depth': 10, 'min_samples_leaf': 30};0.8005225225225224;0.04414072058796545;0.6036211292143696;0.05743197854744858;0.763968439509059;0.03925993981571772
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomOverSampler;notUsed;PCA - NO;all;DecisionTreeClassifier;{'max_depth': 10, 'min_samples_leaf': 30, 'criterion': 'entropy'};0.7228108108108109;0.05261978230797605;0.510145201460804;0.045015815590443736;0.7030921244886031;0.03671430425052921
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomOverSampler;notUsed;PCA - NO;all;DecisionTreeClassifier;{'max_depth': 10, 'min_samples_leaf': 30, 'criterion': 'log_loss'};0.7188108108108108;0.05217273850673301;0.5064866648754383;0.04419754569297134;0.7005497516072473;0.035974691936307104
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomOverSampler;notUsed;PCA - NO;all;DecisionTreeClassifier;{'max_depth': 10, 'min_samples_leaf': 30};0.7428288288288288;0.05313036921978548;0.5188037178749253;0.061139760763800066;0.7067230420806545;0.04473282581998856
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomOverSampler;notUsed;PCA - NO;all;LogisticRegression;{'penalty': 'l2', 'C': 0.1};0.7884684684684686;0.04772530494149604;0.5816972371248441;0.05929467807171629;0.7471873173582699;0.039305287884361
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomOverSampler;notUsed;PCA - NO;all;LogisticRegression;{'penalty': 'l2', 'C': 1};0.7884864864864866;0.0457550139885114;0.5811229751552333;0.05777223515709509;0.7472019286966687;0.03768948450806255
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomOverSampler;notUsed;PCA - NO;all;LogisticRegression;{'penalty': 'l2', 'C': 0.85};0.7884864864864866;0.0457550139885114;0.5811229751552333;0.05777223515709509;0.7472019286966687;0.03768948450806255
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";SMOTE;notUsed;PCA - NO;all;SVC;{'kernel': 'sigmoid', 'C': 0.7, 'probability': True};0.6921017402945114;0.025044560821780058;0.4827998667751439;0.019777008753014188;0.6836853813718143;0.015784875846822033
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";SMOTE;notUsed;PCA - NO;all;SVC;{'kernel': 'sigmoid', 'C': 0.9, 'probability': True};0.6880856760374833;0.02504456082178005;0.4795482536075566;0.019514509708444688;0.6811300002450046;0.015785761346729734
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";SMOTE;notUsed;PCA - NO;all;SVC;{'kernel': 'sigmoid', 'probability': True};0.6947791164658635;0.02914530261991597;0.4828680013166951;0.022434008555354216;0.6831630641828306;0.017957376899331794
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";SMOTE;notUsed;PCA - NO;all;SVC;{'C': 0.7, 'probability': True};0.7831325301204819;0.014293277445825038;0.5524334251606978;0.030182021794929816;0.7254990965907407;0.020071433557205434
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";SMOTE;notUsed;PCA - NO;all;SVC;{'C': 0.9, 'probability': True};0.7804551539491298;0.010540840527458913;0.5469237832874195;0.02240888748234289;0.7215579759829535;0.014508237842436074
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";SMOTE;notUsed;PCA - NO;all;SVC;{'probability': True};0.7764390896921017;0.0068259966714762825;0.5423071396723682;0.016606310287220014;0.7189938734188509;0.011285715520591249
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";SMOTE;notUsed;PCA - NO;all;KNeighborsClassifier;{'n_neighbors': 5};0.7095046854082998;0.008252227580949062;0.49144107442195956;0.021927112456734354;0.690110383776152;0.018543241546801897
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";SMOTE;notUsed;PCA - NO;all;KNeighborsClassifier;{'n_neighbors': 10};0.7416331994645248;0.012414482591025037;0.5115673799884325;0.01907887294445148;0.7014474934735491;0.012416971837191999
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";SMOTE;notUsed;PCA - NO;all;KNeighborsClassifier;{'n_neighbors': 15};0.713520749665328;0.005008912164355986;0.4928401300535838;0.010434337958857825;0.6903670902323192;0.007122846718696808
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";SMOTE;notUsed;PCA - NO;all;RandomForestClassifier;{'max_depth': 10, 'min_samples_leaf': 30, 'criterion': 'entropy'};0.785809906291834;0.0037863816931006508;0.5806684355071452;0.018175390120207812;0.7521737679644239;0.014946546430269254
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";SMOTE;notUsed;PCA - NO;all;RandomForestClassifier;{'max_depth': 10, 'min_samples_leaf': 30, 'criterion': 'log_loss'};0.7751004016064257;0.006558205469298996;0.5647843196230293;0.0035261257644440443;0.7409440398209491;0.004308636971016455
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";SMOTE;notUsed;PCA - NO;all;RandomForestClassifier;{'max_depth': 10, 'min_samples_leaf': 30};0.7831325301204819;0.003279102734649498;0.5823285038630214;0.010912727609480019;0.7551155892126243;0.008792396568545312
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";SMOTE;notUsed;PCA - NO;all;DecisionTreeClassifier;{'max_depth': 10, 'min_samples_leaf': 30, 'criterion': 'entropy'};0.7228915662650602;0.0032791027346495425;0.5006535947712419;0.01923575789858237;0.6965072563455313;0.01911552982357518
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";SMOTE;notUsed;PCA - NO;all;DecisionTreeClassifier;{'max_depth': 10, 'min_samples_leaf': 30, 'criterion': 'log_loss'};0.7228915662650602;0.0032791027346495425;0.5006535947712419;0.01923575789858237;0.6965072563455313;0.01911552982357518
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";SMOTE;notUsed;PCA - NO;all;DecisionTreeClassifier;{'max_depth': 10, 'min_samples_leaf': 30};0.7014725568942436;0.027500185520982757;0.5012345679012346;0.02289782344566841;0.7008181604093554;0.018399927973223814
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";SMOTE;notUsed;PCA - NO;all;LogisticRegression;{'penalty': 'l2', 'C': 0.1};0.7764390896921017;0.010540840527458894;0.5595992493372124;0.010079474511006836;0.7349740331546261;0.005996300489639742
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";SMOTE;notUsed;PCA - NO;all;LogisticRegression;{'penalty': 'l2', 'C': 1};0.7737617135207496;0.009465954232751653;0.5542348749735112;0.006174128960832519;0.7309790389305214;0.0024018854965047833
+Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";SMOTE;notUsed;PCA - NO;all;LogisticRegression;{'penalty': 'l2', 'C': 0.85};0.7737617135207496;0.009465954232751653;0.5542348749735112;0.006174128960832519;0.7309790389305214;0.0024018854965047833

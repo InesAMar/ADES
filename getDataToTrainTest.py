@@ -18,11 +18,15 @@ def getDataToTrainTest(path,wantFunc:bool, wantMetrics:bool, wantComplexity:bool
     devPath = path +"\\dev"
     compPath = path +"\\comp"
     
+    dataTested=""
     if wantFunc:
+        dataTested+="functions;"
         listOfCsv.append('functions')
     if wantMetrics:
+        dataTested+="change_metrics;"
         listOfCsv.append('change_metrics')
     if wantComplexity:
+        dataTested+="complexity;"
         listOfCsv.append('complexity')
     
     trainData = pd.DataFrame([])
@@ -52,5 +56,15 @@ def getDataToTrainTest(path,wantFunc:bool, wantMetrics:bool, wantComplexity:bool
         imp = IterativeImputer(estimator=modelToFit, verbose=2, max_iter=30, tol=1e-10, imputation_order='roman')
         formattedData = imp.fit_transform(trainData.drop(['functionId'],axis=1))
         trainData = pd.concat([trainData['functionId'], pd.DataFrame(formattedData, columns=np.delete(columns,columns=='functionId'))],axis=1)
-            
-    return trainData, testData
+    """
+    if transform is not None:
+        # z-score transformation
+        trainToTransform = trainData.drop(columns=['functionId','bug'])
+        
+        testToTransform = trainData.drop(columns=['functionId'])
+        mean = trainToTransform.mean()
+        std_dev = trainToTransform.std()
+        trainToTransform = (trainToTransform - mean) / std_dev
+        return trainData, testData, dataTested, mean, std_dev
+    """
+    return trainData, testData, dataTested
