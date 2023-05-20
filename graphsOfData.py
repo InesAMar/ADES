@@ -7,10 +7,11 @@ Created on Tue May  2 11:28:55 2023
 
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.cluster import SpectralClustering
 import numpy as np
 
 def graphsOfData(trainData, path):
-    """ANÁLISE DAS FEATURES"""
+    """FEATURE ANALYSIS"""
     
     plt.figure(figsize = (40, 30))
     
@@ -31,8 +32,6 @@ def graphsOfData(trainData, path):
         ax.set_xlabel(f"Distribution of {feature}")
     
     plt.savefig(path+'/distribuitionClasses.png')
-    plt.savefig('Desktop' + '/distribuitionClasses.png')
-
     
     plt.figure(figsize = (40, 30))
     
@@ -51,7 +50,6 @@ def graphsOfData(trainData, path):
         ax.set_xlabel(f"Distribution of {feature}")    
     
     plt.savefig(path+'/boxplots_dist.png')
-    plt.savefig('Desktop' + '/boxplots_dist.png')
 
     #Heatmaps of Correlation Matrices
     corr_matrix = np.corrcoef(trainData.drop(columns=['functionId','bug']).transpose())
@@ -63,5 +61,15 @@ def graphsOfData(trainData, path):
     ax.set_xlabel("Feature's index")
     ax.set_ylabel("Feature's index")
     cbar = ax.figure.colorbar(im, ax=ax, format='% .2f')
-    plt.show()
+    
     plt.savefig(path+'/corrmatrix.png')
+
+    # Clustering - Spectral clustering
+    X = trainData.drop(columns = ['functionId','bug'])
+    clustering = SpectralClustering(n_clusters=2,
+            assign_labels='kmeans', random_state=0).fit(X)
+    clust_labels = clustering.labels_
+    Y = trainData['bug']
+    clust_accuracy = (clust_labels == Y)
+    clust_accuracy = len(clust_accuracy[clust_accuracy == True])/len(clust_labels)
+    print("Clustering before data feature selection - accuracy:", clust_accuracy)
