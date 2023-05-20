@@ -15,7 +15,6 @@ def trainAndTestModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsCla
     # Split the data into train and test sets with equal class proportions
     splitter = StratifiedKFold(n_splits = k_fold)
     
-    accuracies=[]
     rocAUCs=[]
     f1Scores=[]
     bestAuc=0.0
@@ -46,9 +45,6 @@ def trainAndTestModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsCla
         outProbs = modelToTrain.predict_proba(X_test)
         outPrediction = np.argmax(outProbs, axis=1)
         
-        accuracy = np.mean(outPrediction == y_test)
-        accuracies.append(accuracy)
-        
         roc_auc = roc_auc_score(y_test, outPrediction)
         rocAUCs.append(roc_auc)
         if roc_auc>bestAuc:
@@ -60,21 +56,18 @@ def trainAndTestModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsCla
         f1Score = f1_score(y_test, outPrediction)
         f1Scores.append(f1Score)
     
-    meanAcc=sum(accuracies)/len(accuracies)
-    stdAcc =np.std(accuracies)
     meanRocAuc=sum(rocAUCs)/len(rocAUCs)
     stdRocAuc =np.std(rocAUCs)
     meanf1Score=sum(f1Scores)/len(f1Scores)
     stdf1Score =np.std(f1Scores)
     
-    return bestModel, [meanAcc,stdAcc], [meanRocAuc,stdRocAuc], [meanf1Score,stdf1Score], bestMean, bestStd
+    return bestModel, [meanRocAuc,stdRocAuc], [meanf1Score,stdf1Score], bestMean, bestStd
 
 
 def trainAndTestEnsembleModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsClassfier, overOrUnder:Callable[...,Any]=None, dictArgsSamp=None):
     # Split the data into train and test sets with equal class proportions
     splitter = StratifiedKFold(n_splits = k_fold)
     
-    accuracies=[]
     rocAUCs=[]
     f1Scores=[]
     bestAuc=0.0
@@ -100,9 +93,6 @@ def trainAndTestEnsembleModel(typeOfModel:Callable[... , Any], X, y, k_fold, dic
         outProbs = ensemble_model.predict_proba(X_test)
         outPrediction = np.argmax(outProbs, axis=1)
         
-        accuracy = np.mean(outPrediction == y_test)
-        accuracies.append(accuracy)
-        
         roc_auc = roc_auc_score(y_test, outPrediction)
         rocAUCs.append(roc_auc)
         if roc_auc>bestAuc:
@@ -112,11 +102,9 @@ def trainAndTestEnsembleModel(typeOfModel:Callable[... , Any], X, y, k_fold, dic
         f1Score = f1_score(y_test, outPrediction)
         f1Scores.append(f1Score)
     
-    meanAcc=sum(accuracies)/len(accuracies)
-    stdAcc =np.std(accuracies)
     meanRocAuc=sum(rocAUCs)/len(rocAUCs)
     stdRocAuc =np.std(rocAUCs)
     meanf1Score=sum(f1Scores)/len(f1Scores)
     stdf1Score =np.std(f1Scores)
     
-    return bestModel, [meanAcc,stdAcc], [meanRocAuc,stdRocAuc], [meanf1Score,stdf1Score]
+    return bestModel, [meanRocAuc,stdRocAuc], [meanf1Score,stdf1Score]

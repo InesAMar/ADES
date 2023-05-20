@@ -37,11 +37,11 @@ devPath = os.path.join(path, 'dev')
 
 
 # Data Selection, Select which csv's to use (Functions, Metrics, Complexity)
-wantFunc = False
-wantMetrics = False
+wantFunc = True
+wantMetrics = True
 wantComplexity = True
 trainData, testData, dataTested = getDataToTrainTest(path, wantFunc, wantMetrics, wantComplexity,1)
-testData.to_csv(os.path.join(compPath,'test_mergedfile.csv'), index=False)
+#testData.to_csv(os.path.join(compPath,'test_mergedfile.csv'), index=False)
 
 graphsOfData(trainData, path = path)
 
@@ -102,7 +102,7 @@ for classifier in listOfModels:
         outData= pd.read_csv(os.path.join(compPath,'test_mergedfile.csv'))
         outPrediction2 = outData['functionId']
         # Train, Test and obtain main results of classifier
-        modelToTest, meanAcc, meanRocAUC, meanf1Sco, mean, std = trainAndTestModel(classifier, 
+        modelToTest, meanRocAUC, meanf1Sco, mean, std = trainAndTestModel(classifier, 
                                                                         trainData.drop(columns=['functionId','bug']), 
                                                                         trainData['bug'],
                                                                         k_fold,
@@ -119,9 +119,7 @@ for classifier in listOfModels:
                     'FeatureSelection': "PCA - NO",
                     'nFeat': 'all',
                     'Classifier':type(modelToTest).__name__,	
-                    'ClassifierHyperP':str(dictArgsClassfier),	
-                    'Accuracy': meanAcc[0],
-                    'Std Acc': meanAcc[1],
+                    'ClassifierHyperP':str(dictArgsClassfier),
                     'F1-measure': meanf1Sco[0],
                     'Std F1': meanf1Sco[1],	
                     'ROC-AUC': meanRocAUC[0],
@@ -144,4 +142,3 @@ for classifier in listOfModels:
         outData['functionId'] = outPrediction2
         outData = outData[['functionId','bug']]
         outData.to_csv(os.path.join(compPath,f'ranz-score_Try_{rowcount}_predictions.csv'), sep=';', index=False)
-
