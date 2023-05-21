@@ -76,14 +76,14 @@ def trainAndTestModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsCla
         f1Score = f1_score(y_test, outPrediction)
         f1Scores.append(f1Score)
     
-    meanAcc = sum(accuracies) / len(accuracies)
-    stdAcc = np.std(accuracies)
+    #meanAcc = sum(accuracies) / len(accuracies)
+    #stdAcc = np.std(accuracies)
     meanRocAuc = sum(rocAUCs) / len(rocAUCs)
     stdRocAuc = np.std(rocAUCs)
     meanf1Score = sum(f1Scores) / len(f1Scores)
     stdf1Score = np.std(f1Scores)
     
-    return bestModel, [meanAcc, stdAcc], [meanRocAuc, stdRocAuc], [meanf1Score, stdf1Score], bestMean, bestStd, bestParams
+    return bestModel, [meanRocAuc, stdRocAuc], [meanf1Score, stdf1Score], bestMean, bestStd, bestParams, nFeat
 
 
 def trainAndTestEnsembleModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsClassifier, overOrUnder:Callable[...,Any]=None, dictArgsSamp=None, paramGrid=None):

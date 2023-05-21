@@ -47,16 +47,14 @@ trainData, testData, dataTested = getDataToTrainTest(path, wantFunc, wantMetrics
 
 graphsOfData(trainData, path = path)
 
+# Choose Feature Selection OR PCA
+transformation=['pca', 'backward']
+featureSelection=transformation[0]
+
 # Parameters for Model Train and Test 
 k_fold=3
 test_percentage=1/k_fold
-#nFeat=20 # For PCA if used 
 kSmote=10 
-
-
-
-#Data transformation
-
 
 # Choose Sampling Strategy by choosing the index in "strategy"
 strategies=[RandomUnderSampler,
@@ -85,67 +83,49 @@ listOfModels = list([ SVC,
                       KMeans,
                       AgglomerativeClustering
                       ])
-
+        
+        
 for classifier in listOfModels:
-    
-    """if classifier == LogisticRegression:
-        listOfArgs = list([{"penalty":'l2', "C":0.1},{"penalty":'l2', "C":1},{"penalty":'l2', "C":0.85}])
-    elif classifier == KNeighborsClassifier:
-        listOfArgs = list([{"n_neighbors": 5},{"n_neighbors": 10},{"n_neighbors": 15}])
-    elif classifier == SVC:
-        listOfArgs=list([{"kernel":"sigmoid","C":0.7,"probability":True},{"kernel":"sigmoid","C":0.9,"probability":True},
-                         {"kernel":"sigmoid","probability":True},
-                          {"C":0.7,"probability":True},{"C":0.9,"probability":True},
-                         {"probability":True}])
-    elif (classifier == DecisionTreeClassifier) or (classifier == RandomForestClassifier):
-        listOfArgs=list([{"max_depth":10,"min_samples_leaf":30,"criterion":"entropy"},
-                         {"max_depth":10,"min_samples_leaf":30,"criterion":"log_loss"},
-                         {"max_depth":10,"min_samples_leaf":30}])
-    else:
-        listOfArgs=list([])--------- acho que com o grid seacrh isto deixa de ser preciso"""-
-        
-        
-    for dictArgsClassfier in listOfArgs:
-        outData= pd.read_csv(os.path.join(compPath,'test_mergedfile.csv'))
-        outPrediction2 = outData['functionId']
+    outData= pd.read_csv(os.path.join(compPath,'test_mergedfile.csv'))
+    outPrediction2 = outData['functionId']
         # Train, Test and obtain main results of classifier
-        modelToTest, meanRocAUC, meanf1Sco, mean, std = trainAndTestModel(classifier, 
+    modelToTest, meanRocAUC, meanf1Sco, mean, std, bestParam, nFeat = trainAndTestModel(classifier, 
                                                                         trainData.drop(columns=['functionId','bug']), 
                                                                         trainData['bug'],
                                                                         k_fold,
-                                                                        dictArgsClassfier,
                                                                         strategy,
                                                                         dictArgsSamp,
-                                                                        True)
+                                                                        True,
+                                                                        featureSelection)
         
-        outData=(outData.drop(columns = ['functionId'])-mean)/std
-        # Agregate relevant data about the results and process characteristics on dictionary object 
-        dataToSave={'Data tested': dataTested,
+    outData=(outData.drop(columns = ['functionId'])-mean)/std
+    # Agregate relevant data about the results and process characteristics on dictionary object 
+    dataToSave={'Data tested': dataTested,
                     'sampling strat':strategy.__name__,
                     'kSmote':"notUsed",
-                    'FeatureSelection': "PCA - NO",
+                    'FeatureSelection': featureSelection,
                     'nFeat': nFeat,
                     'Classifier':type(modelToTest).__name__,	
-                    'ClassifierHyperP':str(dictArgsClassfier),
+                    'ClassifierHyperP': bestParam,
                     'F1-measure': meanf1Sco[0],
                     'Std F1': meanf1Sco[1],	
                     'ROC-AUC': meanRocAUC[0],
                     'Std ROC-AUC': meanRocAUC[1]}
         
-        # Save the data onto csv file for posterior processing
-        dataToSave = pd.DataFrame([dataToSave])
-        dataToSave.to_csv(os.path.join(devPath,"ranz-score_final_results.csv"), mode='a',sep=';', index=False, header=True)
+    # Save the data onto csv file for posterior processing
+    dataToSave = pd.DataFrame([dataToSave])
+    dataToSave.to_csv(os.path.join(devPath,"ranz-score_final_results.csv"), mode='a',sep=';', index=False, header=True)
 
-        rowcount=0
-        for row in open(os.path.join(devPath,"ranz-score_final_results.csv")):
-          rowcount+= 1
-        #printing the result
-        print("Number of lines present:-", rowcount) 
+    rowcount=0
+    for row in open(os.path.join(devPath,"ranz-score_final_results.csv")):
+        rowcount+= 1
+    #printing the result
+    print("Number of lines present:-", rowcount) 
 
         #outData2 = pca.transform(outData.drop(columns = ['functionId']))
-        outPrediction = modelToTest.predict(outData)
+    outPrediction = modelToTest.predict(outData)
 
-        outData['bug'] = outPrediction
-        outData['functionId'] = outPrediction2
-        outData = outData[['functionId','bug']]
-        outData.to_csv(os.path.join(compPath,f'ranz-score_Try_{rowcount}_predictions.csv'), sep=';', index=False)
+    outData['bug'] = outPrediction
+    outData['functionId'] = outPrediction2
+    outData = outData[['functionId','bug']]
+    outData.to_csv(os.path.join(compPath,f'ranz-score_Try_{rowcount}_predictions.csv'), sep=';', index=False)

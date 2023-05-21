@@ -140,15 +140,13 @@ def PCAfunction(X):
     return trainData_boruta, boruta.support_
 
 
- """
-    if transform is not None:
-        # z-score transformation
-        trainToTransform = trainData.drop(columns=['functionId','bug'])
+#if transform is not None:
+    # z-score transformation
+    #trainToTransform = trainData.drop(columns=['functionId','bug'])
         
-        testToTransform = trainData.drop(columns=['functionId'])
-        mean = trainToTransform.mean()
-        std_dev = trainToTransform.std()
-        trainToTransform = (trainToTransform - mean) / std_dev
-        return trainData, testData, dataTested, mean, std_dev
-    """
-    return trainData, testData, dataTested
+    #testToTransform = trainData.drop(columns=['functionId'])
+    #mean = trainToTransform.mean()
+    #std_dev = trainToTransform.std()
+    #trainToTransform = (trainToTransform - mean) / std_dev
+    #return trainData, testData, dataTested, mean, std_dev
+#return trainData, testData, dataTested
