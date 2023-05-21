@@ -1,0 +1,18 @@
+Data tested;sampling strat;kSmote;num_epochs;n_nodes;Classifier;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;notUsed;500;10;SmallNetwork;0.0;0.0;0.5951846657316504;0.04380051858076696;0.7674723848578294;0.03269458049007982
+Data tested;sampling strat;kSmote;num_epochs;n_nodes;Classifier;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;notUsed;500;20;SmallNetwork;0.0;0.0;0.6370881782945736;0.059890080584130596;0.7924866189017132;0.04507912643287402
+Data tested;sampling strat;kSmote;num_epochs;n_nodes;Classifier;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;notUsed;500;30;SmallNetwork;0.0;0.0;0.6187091978798179;0.07291667597229833;0.786223237346328;0.06034500622990185
+Data tested;sampling strat;kSmote;num_epochs;n_nodes;Classifier;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;notUsed;500;20;SmallNetwork;0.0;0.0;0.5471077298407807;0.0646642952482501;0.7238378456258062;0.043138305953664746
+Data tested;sampling strat;kSmote;num_epochs;n_nodes;Classifier;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;notUsed;500;30;SmallNetwork;0.0;0.0;0.538372305172626;0.03397330557546821;0.7247182262680915;0.030148561565383033
+Data tested;sampling strat;kSmote;num_epochs;n_nodes;Classifier;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;notUsed;500;20;SmallNetwork;0.0;0.0;0.5040220989217337;0.05221599766060943;0.6968220338983051;0.03557411809701971
+Data tested;sampling strat;kSmote;num_epochs;n_nodes;Classifier;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;notUsed;500;30;SmallNetwork;0.0;0.0;0.5262880741719355;0.03262449388106033;0.7190053237722729;0.025028955797267678
+Data tested;sampling strat;kSmote;num_epochs;n_nodes;Classifier;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;notUsed;100;20;SmallNetwork;0.0;0.0;0.5060826586943536;0.029469581729426802;0.700570856873823;0.02298502867046565
+Data tested;sampling strat;kSmote;num_epochs;n_nodes;Classifier;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;notUsed;100;30;SmallNetwork;0.0;0.0;0.5219718928095844;0.04399702719097584;0.7104972475735188;0.028330726702851174

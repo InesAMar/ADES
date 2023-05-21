@@ -4,10 +4,9 @@ from typing import Callable, Any
 from sklearn.model_selection import StratifiedKFold, GridSearchCV
 from sklearn.ensemble import AdaBoostClassifier
 import pandas as pd
-from getDataToTrainTest import BackwardElimination
-from getDataToTrainTest import PCAfunction
+from getDataToTrainTest import BackwardElimination, PCAfunction
 
-def trainAndTestModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsClassifier, overOrUnder:Callable[...,Any]=None, dictArgsSamp=None, transform=None, featureSelection=None):
+def trainAndTestModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsClassifier, overOrUnder:Callable[...,Any]=None, dictArgsSamp=None, transform=None, pca=None, backElim=None):
     # Split the data into train and test sets with equal class proportions
     splitter = StratifiedKFold(n_splits=k_fold)
     
@@ -23,28 +22,29 @@ def trainAndTestModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsCla
         X_test, y_test = X.loc[test_indices], y.loc[test_indices]
     
         # Feature Selection OR Data Reduction
-        features = X_train.drop(['functionId']['bug'],axis=1)  # ????
+        #features = X_train.drop(['functionId']['bug'],axis=1)  # ????
         target = y_train
-
-        if featureSelection == 'pca':
-            pca_features, nFeat = PCAfunction (features)
-            X_train = pd.concat([X_train['functionId'], pca_features, X_train['bug']],axis=1)
-            
-        if featureSelection == 'backward':
-            selected_features = BackwardElimination(features, target, 0.05)
-            X_train = pd.concat([X_train['functionId'], selected_features, X_train['bug']],axis=1)
-
 
         mean = X_train.mean()                           
         std_dev = X_train.std()
+        
         if transform is not None:
             # z-score transformation
             X_train = (X_train - mean) / std_dev
             X_test = (X_test - mean) / std_dev
             
+        if pca is not None:
+            pca_features, nFeat, pca_object = PCAfunction(X_train)
+            X_train = pca_features
+            X_test = pca_object.transform(X_test)
+            #X_train = pd.concat([X_train['functionId'], pca_features, X_train['bug']],axis=1)
+            
+        if backElim is not None:
+            X_train, X_test = BackwardElimination(X_train, X_test, target, 0.05)
+            #X_train = pd.concat([X_train['functionId'], selected_features, X_train['bug']],axis=1)
+
         if overOrUnder is not None:
             rus = overOrUnder(**dictArgsSamp)
-    
             X_train, y_train = rus.fit_resample(X_train, y_train)
         
         # define model

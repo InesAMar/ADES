@@ -1,0 +1,12 @@
+Data tested;sampling strat;kSmote;FeatureTransform;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;notUsed;z-score e PCA;SVC;{'C': 0.9, 'gamma': 0.01, 'kernel': 'sigmoid', 'probability': True};0.5580091739606546;0.06866397376721743;0.7329263544835578;0.04613021305795368
+Data tested;sampling strat;kSmote;FeatureTransform;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;notUsed;z-score e PCA;SVC;{'C': 0.1, 'gamma': 0.1, 'kernel': 'sigmoid', 'probability': True};0.5594192171805992;0.04778948924835033;0.7341617774880487;0.033829657412632066
+Data tested;sampling strat;kSmote;FeatureTransform;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;notUsed;z-score e PCA;KNeighborsClassifier;{'n_neighbors': 10, 'p': 2, 'weights': 'distance'};0.5335419652810958;0.036931538687766975;0.7027818520932928;0.019167973302119095
+Data tested;sampling strat;kSmote;FeatureTransform;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;notUsed;z-score e PCA;RandomForestClassifier;{'criterion': 'log_loss', 'max_depth': 5, 'min_samples_leaf': 10};0.5542987110990704;0.0339443085459385;0.7247387911053165;0.028753260788675607
+Data tested;sampling strat;kSmote;FeatureTransform;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;notUsed;z-score e PCA;DecisionTreeClassifier;{'criterion': 'entropy', 'max_depth': 5, 'min_samples_leaf': 30};0.5090975107400184;0.02684008705668102;0.6960307112849485;0.02075934069811998
+Data tested;sampling strat;kSmote;FeatureTransform;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;notUsed;z-score e PCA;LogisticRegression;{'C': 0.1, 'penalty': 'l2', 'solver': 'saga'};0.5777940109879157;0.06711355908948197;0.7414493698392003;0.04544567847679706

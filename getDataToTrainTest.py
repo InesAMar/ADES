@@ -64,24 +64,37 @@ def getDataToTrainTest(path,wantFunc:bool, wantMetrics:bool, wantComplexity:bool
         imp = IterativeImputer(estimator=modelToFit, verbose=2, max_iter=30, tol=1e-10, imputation_order='roman')
         formattedData = imp.fit_transform(trainData.drop(['functionId'],axis=1))
         trainData = pd.concat([trainData['functionId'], pd.DataFrame(formattedData, columns=np.delete(columns,columns=='functionId'))],axis=1)
-            
-    return trainData, testData
+
+    
+    """
+    if transform is not None:
+        # z-score transformation
+        trainToTransform = trainData.drop(columns=['functionId','bug'])
+        
+        testToTransform = trainData.drop(columns=['functionId'])
+        mean = trainToTransform.mean()
+        std_dev = trainToTransform.std()
+        trainToTransform = (trainToTransform - mean) / std_dev
+        return trainData, testData, dataTested, mean, std_dev
+    """
+    return trainData, testData, dataTested 
 
 
 # FEATURE SELECTION ##########################################################
 
 # Backward elimination:
-def BackwardElimination(X, y, significance_level=0.05):
-    num_features = X.shape[1]
+def BackwardElimination(X_train, X_test, y, significance_level=0.05):
+    num_features = X_train.shape[1]
     for i in range(num_features):
-        regressor = sm.OLS(y, X).fit()
+        regressor = sm.OLS(y, X_train).fit()
         max_pvalue = max(regressor.pvalues)
         if max_pvalue > significance_level:
             max_index = np.argmax(regressor.pvalues)
-            X = np.delete(X, max_index, axis=1)
+            X_train = np.delete(X_train, max_index, axis=1)
+            X_test = np.delete(X_test, max_index, axis=1)
         else:
             break    
-    return X
+    return X_train, X_test, col_index
 
 
 # DATA REDUCTION ##########################################################
@@ -110,10 +123,10 @@ def PCAfunction(X):
     # Print the best number of components
     print("Best number of components:", best_n_components)
 
-    return trainData_pca, best_n_components
+    return trainData_pca, best_n_components, best_pca
 
 # LDA:
-#def LDAfunction (trainData, n_components):
+def LDAfunction(trainData, n_components):
 
     # create an LDA object and fit the data
     lda = LinearDiscriminantAnalysis(n_components)
@@ -125,7 +138,7 @@ def PCAfunction(X):
     return trainData_lda 
 
 # BORUTA:
-#def Borutafunction (trainData):
+def Borutafunction(trainData):
 
     # create a random forest classifier
     rf = RandomForestClassifier(n_estimators=10, random_state=42)
@@ -139,16 +152,3 @@ def PCAfunction(X):
 
     return trainData_boruta, boruta.support_
 
-
- """
-    if transform is not None:
-        # z-score transformation
-        trainToTransform = trainData.drop(columns=['functionId','bug'])
-        
-        testToTransform = trainData.drop(columns=['functionId'])
-        mean = trainToTransform.mean()
-        std_dev = trainToTransform.std()
-        trainToTransform = (trainToTransform - mean) / std_dev
-        return trainData, testData, dataTested, mean, std_dev
-    """
-    return trainData, testData, dataTested

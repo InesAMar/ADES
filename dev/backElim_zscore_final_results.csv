@@ -1,0 +1,12 @@
+Data tested;sampling strat;kSmote;FeatureTransform;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;notUsed;z-score e PCA;SVC;{};0.5512204535780777;0.04473378058205944;0.7238646240764884;0.029610000035119283
+Data tested;sampling strat;kSmote;FeatureTransform;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;notUsed;z-score e PCA;KNeighborsClassifier;{};0.524408637751536;0.055678125919171255;0.7053332790091265;0.03477515460567549
+Data tested;sampling strat;kSmote;FeatureTransform;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;notUsed;z-score e PCA;RandomForestClassifier;{};0.5456615970672195;0.033260942888569664;0.7290285926408807;0.024672886696916186
+Data tested;sampling strat;kSmote;FeatureTransform;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;notUsed;z-score e PCA;DecisionTreeClassifier;{};0.4246546779246816;0.01602344000077627;0.6327760575112269;0.015806273237342797
+Data tested;sampling strat;kSmote;FeatureTransform;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;notUsed;z-score e PCA;LogisticRegression;{};0.5641885317747387;0.05485811370575339;0.7337715486020571;0.03669258913241753
+Data tested;sampling strat;kSmote;FeatureTransform;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;notUsed;z-score e PCA;SVC;{};0.5699265260585167;0.04570399564205019;0.7366439410401274;0.029812966176492612
