@@ -26,11 +26,15 @@ def getDataToTrainTest(path,wantFunc:bool, wantMetrics:bool, wantComplexity:bool
     devPath = path +"\\dev"
     compPath = path +"\\comp"
     
+    dataTested=""
     if wantFunc:
+        dataTested+="functions;"
         listOfCsv.append('functions')
     if wantMetrics:
+        dataTested+="change_metrics;"
         listOfCsv.append('change_metrics')
     if wantComplexity:
+        dataTested+="complexity;"
         listOfCsv.append('complexity')
     
     trainData = pd.DataFrame([])
@@ -134,3 +138,17 @@ def PCAfunction(X):
     trainData_boruta = boruta.transform(trainData) 
 
     return trainData_boruta, boruta.support_
+
+
+ """
+    if transform is not None:
+        # z-score transformation
+        trainToTransform = trainData.drop(columns=['functionId','bug'])
+        
+        testToTransform = trainData.drop(columns=['functionId'])
+        mean = trainToTransform.mean()
+        std_dev = trainToTransform.std()
+        trainToTransform = (trainToTransform - mean) / std_dev
+        return trainData, testData, dataTested, mean, std_dev
+    """
+    return trainData, testData, dataTested
