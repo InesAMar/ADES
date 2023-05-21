@@ -18,7 +18,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
-def trainAndTestModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsClassfier, overOrUnder:Callable[...,Any]=None, dictArgsSamp=None,transform=None):
+""" def trainAndTestModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsClassfier, overOrUnder:Callable[...,Any]=None, dictArgsSamp=None,transform=None):
     # Split the data into train and test sets with equal class proportions
     splitter = StratifiedKFold(n_splits = k_fold)
     
@@ -68,13 +68,12 @@ def trainAndTestModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsCla
     meanf1Score=sum(f1Scores)/len(f1Scores)
     stdf1Score =np.std(f1Scores)
     
-    return bestModel, [meanRocAuc,stdRocAuc], [meanf1Score,stdf1Score], bestMean, bestStd
+    return bestModel, [meanRocAuc,stdRocAuc], [meanf1Score,stdf1Score], bestMean, bestStd """
 
-def trainAndTestModel2(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsClassifier, overOrUnder:Callable[...,Any]=None, dictArgsSamp=None, transform=None, pca=None, backElim=None):
+def trainAndTestModel2(typeOfModel:Callable[... , Any], X, y, outFeatures, k_fold, dictArgsClassifier, overOrUnder:Callable[...,Any]=None, dictArgsSamp=None, transform=None, pca=None, backElim=None):
     # Split the data into train and test sets with equal class proportions
     splitter = StratifiedKFold(n_splits=k_fold)
     
-    accuracies=[]
     rocAUCs=[]
     f1Scores=[]
     bestAuc=0.0
@@ -86,9 +85,7 @@ def trainAndTestModel2(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsCl
         X_test, y_test = X.loc[test_indices], y.loc[test_indices]
     
         # Feature Selection OR Data Reduction
-        #features = X_train.drop(['functionId']['bug'],axis=1)  # ????
-        target = y_train
-
+        
         mean = X_train.mean()                           
         std_dev = X_train.std()
         
@@ -96,21 +93,17 @@ def trainAndTestModel2(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsCl
             # z-score transformation
             X_train = (X_train - mean) / std_dev
             X_test = (X_test - mean) / std_dev
+            outFeatures = (outFeatures - mean) / std_dev
             
         if pca is not None:
             pca_features, nFeat, pca_object = PCAfunction(X_train)
             X_train = pca_features
             X_test = pca_object.transform(X_test)
-        else:
-            pca_object=None
-            #X_train = pd.concat([X_train['functionId'], pca_features, X_train['bug']],axis=1)
+            outFeatures = pca_object.transform(outFeatures)
             
         if backElim is not None:
-            X_train, X_test, be_object = BackwardElimination(X_train, X_test, target, 0.05)
-        else:
-            be_object = None
-            #X_train = pd.concat([X_train['functionId'], selected_features, X_train['bug']],axis=1)
-
+            X_train, X_test, outFeatures = BackwardElimination(X_train, X_test, outFeatures, y_train, 0.05)
+        
         if overOrUnder is not None:
             rus = overOrUnder(**dictArgsSamp)
             X_train, y_train = rus.fit_resample(X_train, y_train)
@@ -134,8 +127,6 @@ def trainAndTestModel2(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsCl
         roc_auc = roc_auc_score(y_test, outPrediction)
         rocAUCs.append(roc_auc)
         if roc_auc > bestAuc:
-            bestMean = mean 
-            bestStd = std_dev
             bestAuc = roc_auc
 
         f1Score = f1_score(y_test, outPrediction)
@@ -146,7 +137,7 @@ def trainAndTestModel2(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsCl
     meanf1Score = sum(f1Scores) / len(f1Scores)
     stdf1Score = np.std(f1Scores)
     
-    return bestModel, [meanRocAuc, stdRocAuc], [meanf1Score, stdf1Score], bestMean, bestStd, bestParams, pca_object, be_object
+    return bestModel, [meanRocAuc, stdRocAuc], [meanf1Score, stdf1Score], bestParams, outFeatures
 
 
 def trainAndTestEnsembleModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsClassfier, overOrUnder:Callable[...,Any]=None, dictArgsSamp=None):

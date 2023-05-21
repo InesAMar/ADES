@@ -65,25 +65,13 @@ def getDataToTrainTest(path,wantFunc:bool, wantMetrics:bool, wantComplexity:bool
         formattedData = imp.fit_transform(trainData.drop(['functionId'],axis=1))
         trainData = pd.concat([trainData['functionId'], pd.DataFrame(formattedData, columns=np.delete(columns,columns=='functionId'))],axis=1)
 
-    
-    """
-    if transform is not None:
-        # z-score transformation
-        trainToTransform = trainData.drop(columns=['functionId','bug'])
-        
-        testToTransform = trainData.drop(columns=['functionId'])
-        mean = trainToTransform.mean()
-        std_dev = trainToTransform.std()
-        trainToTransform = (trainToTransform - mean) / std_dev
-        return trainData, testData, dataTested, mean, std_dev
-    """
     return trainData, testData, dataTested 
 
 
 # FEATURE SELECTION ##########################################################
 
 # Backward elimination:
-def BackwardElimination(X_train, X_test, y, significance_level=0.05):
+def BackwardElimination(X_train, X_test, outFeatures, y, significance_level=0.05):
     num_features = X_train.shape[1]
     for i in range(num_features):
         regressor = sm.OLS(y, X_train).fit()
@@ -92,9 +80,10 @@ def BackwardElimination(X_train, X_test, y, significance_level=0.05):
             max_index = np.argmax(regressor.pvalues)
             X_train = np.delete(X_train, max_index, axis=1)
             X_test = np.delete(X_test, max_index, axis=1)
+            outFeatures = np.delete(outFeatures, max_index, axis=1)
         else:
             break    
-    return X_train, X_test, col_index
+    return X_train, X_test, outFeatures
 
 
 # DATA REDUCTION ##########################################################
