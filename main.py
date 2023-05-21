@@ -31,10 +31,9 @@ from trainAndTestModel import trainAndTestModel, trainAndTestEnsembleModel
 from graphsOfData import graphsOfData
 
 # Paths
-path = os.getcwd();
+path = os.getcwd()
 compPath = os.path.join(path,'comp')
 devPath = os.path.join(path, 'dev')
-
 
 # Data Selection, Select which csv's to use (Functions, Metrics, Complexity)
 wantFunc = True
@@ -48,8 +47,18 @@ graphsOfData(trainData, path = path)
 # Parameters for Model Train and Test 
 k_fold=10
 test_percentage=1/k_fold
-nFeat=20 # For PCA if used 
-kSmote=10 # For 
+#nFeat=20 # For PCA if used 
+kSmote=10 
+
+# Feature Selection OR Data Reduction
+features = trainData.drop(['functionId']['bug'],axis=1)
+target = trainData['bug']
+
+selected_features = BackwardElimination(features, target, significance_level=0.05)
+trainData_selected = pd.concat([trainData['functionId'], selected_features, trainData['bug']],axis=1)
+
+pca_features, nFeat = PCAfunction (features)
+trainData_pca = pd.concat([trainData['functionId'], pca_features, trainData['bug']],axis=1)
 
 # Choose Sampling Strategy by choosing the index in "strategy"
 strategies=[RandomUnderSampler,
@@ -110,7 +119,7 @@ for classifier in listOfModels:
         dataToSave={'sampling strat':strategy.__name__,
                     'kSmote':"notUsed",
                     'FeatureSelection': "PCA - NO",
-                    'nFeat': 'all',
+                    'nFeat': nFeat,
                     'Classifier':type(modelToTest).__name__,	
                     'ClassifierHyperP':str(dictArgsClassfier),	
                     'Accuracy': meanAcc[0],

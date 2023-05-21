@@ -10,6 +10,14 @@ import numpy as np
 from sklearn.linear_model  import LinearRegression
 from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer 
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from boruta import BorutaPy
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import GridSearchCV
+from sklearn.pipeline import Pipeline
+import statsmodels.api as sm
 
 def getDataToTrainTest(path,wantFunc:bool, wantMetrics:bool, wantComplexity:bool, transform=None):
     # TRAIN DATA
@@ -54,3 +62,75 @@ def getDataToTrainTest(path,wantFunc:bool, wantMetrics:bool, wantComplexity:bool
         trainData = pd.concat([trainData['functionId'], pd.DataFrame(formattedData, columns=np.delete(columns,columns=='functionId'))],axis=1)
             
     return trainData, testData
+
+
+# FEATURE SELECTION ##########################################################
+
+# Backward elimination:
+def BackwardElimination(X, y, significance_level=0.05):
+    num_features = X.shape[1]
+    for i in range(num_features):
+        regressor = sm.OLS(y, X).fit()
+        max_pvalue = max(regressor.pvalues)
+        if max_pvalue > significance_level:
+            max_index = np.argmax(regressor.pvalues)
+            X = np.delete(X, max_index, axis=1)
+        else:
+            break    
+    return X
+
+
+# DATA REDUCTION ##########################################################
+
+# PCA:
+def PCAfunction(X):
+
+    # create a PCA pipeline  
+    pca = PCA()
+    pipeline = Pipeline([('pca', pca)])
+
+    # Define parameter grid for grid search
+    param_grid = {'pca__n_components': [5, 10, 15, 20, 25]}  # Number of components to try
+
+    # Perform grid search
+    grid_search = GridSearchCV(pipeline, param_grid=param_grid, cv=5)
+    grid_search.fit(X)
+
+    # Get the best PCA model
+    best_pca = grid_search.best_estimator_.named_steps['pca']
+    best_n_components = best_pca.n_components_
+
+    # Fit the best PCA model on the data
+    trainData_pca = best_pca.fit_transform(X)
+
+    # Print the best number of components
+    print("Best number of components:", best_n_components)
+
+    return trainData_pca, best_n_components
+
+# LDA:
+#def LDAfunction (trainData, n_components):
+
+    # create an LDA object and fit the data
+    lda = LinearDiscriminantAnalysis(n_components)
+    lda.fit(trainData)
+
+    # transform the data to the new coordinate system
+    trainData_lda = lda.transform(trainData) 
+
+    return trainData_lda 
+
+# BORUTA:
+#def Borutafunction (trainData):
+
+    # create a random forest classifier
+    rf = RandomForestClassifier(n_estimators=10, random_state=42)
+
+    # create a Boruta object and fit the data
+    boruta = BorutaPy(rf, n_estimators='auto', verbose=2, random_state=42)
+    boruta.fit(trainData)
+
+    # transform the data 
+    trainData_boruta = boruta.transform(trainData) 
+
+    return trainData_boruta, boruta.support_
