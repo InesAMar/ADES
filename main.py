@@ -131,9 +131,9 @@ for classifier in listOfModels:
     
     outData=(outData.drop(columns = ['functionId'])-mean)/std
     if pca_object is not None:
-        outData2 = pca_object.transform(outData);
+        outData = pca_object.transform(outData);
     if be_object is not None:
-        outData
+        outData = outData[] 
     
     # Agregate relevant data about the results and process characteristics on dictionary object 
     dataToSave={'Data tested': dataTested,
@@ -158,10 +158,7 @@ for classifier in listOfModels:
     print("Number of lines present:-", rowcount) 
 
     #outData2 = pca.transform(outData.drop(columns = ['functionId']))
-    if pca:
-        outPrediction = modelToTest.predict(outData2)
-    else:
-        outPrediction = modelToTest.predict(outData)
+    outPrediction = modelToTest.predict(outData)
 
     outData['bug'] = outPrediction
     outData['functionId'] = outPrediction2
