@@ -3,8 +3,11 @@ from sklearn.metrics import roc_auc_score, f1_score
 from typing import Callable, Any
 from sklearn.model_selection import StratifiedKFold, GridSearchCV
 from sklearn.ensemble import AdaBoostClassifier
+import pandas as pd
+from getDataToTrainTest import BackwardElimination
+from getDataToTrainTest import PCAfunction
 
-def trainAndTestModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsClassifier, overOrUnder:Callable[...,Any]=None, dictArgsSamp=None, transform=None):
+def trainAndTestModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsClassifier, overOrUnder:Callable[...,Any]=None, dictArgsSamp=None, transform=None, featureSelection=None):
     # Split the data into train and test sets with equal class proportions
     splitter = StratifiedKFold(n_splits=k_fold)
     
@@ -19,6 +22,19 @@ def trainAndTestModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsCla
         X_train, y_train = X.loc[train_indices], y.loc[train_indices]
         X_test, y_test = X.loc[test_indices], y.loc[test_indices]
     
+        # Feature Selection OR Data Reduction
+        features = X_train.drop(['functionId']['bug'],axis=1)  # ????
+        target = y_train
+
+        if featureSelection == 'pca':
+            pca_features, nFeat = PCAfunction (features)
+            X_train = pd.concat([X_train['functionId'], pca_features, X_train['bug']],axis=1)
+            
+        if featureSelection == 'backward':
+            selected_features = BackwardElimination(features, target, 0.05)
+            X_train = pd.concat([X_train['functionId'], selected_features, X_train['bug']],axis=1)
+
+
         mean = X_train.mean()                           
         std_dev = X_train.std()
         if transform is not None:

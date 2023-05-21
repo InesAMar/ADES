@@ -53,15 +53,7 @@ test_percentage=1/k_fold
 #nFeat=20 # For PCA if used 
 kSmote=10 
 
-# Feature Selection OR Data Reduction
-features = trainData.drop(['functionId']['bug'],axis=1)
-target = trainData['bug']
 
-selected_features = BackwardElimination(features, target, significance_level=0.05)
-trainData_selected = pd.concat([trainData['functionId'], selected_features, trainData['bug']],axis=1)
-
-pca_features, nFeat = PCAfunction (features)
-trainData_pca = pd.concat([trainData['functionId'], pca_features, trainData['bug']],axis=1)
 
 #Data transformation
 
