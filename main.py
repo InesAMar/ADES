@@ -18,12 +18,15 @@ from imblearn.under_sampling import RandomUnderSampler
 from imblearn.over_sampling import ADASYN
 from imblearn.over_sampling import RandomOverSampler
 
+
 # Classifier Imports
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
+from sklearn.cluster import KMeans
+from sklearn.cluster import AgglomerativeClustering
 
 #Homemade Imports
 from getDataToTrainTest import getDataToTrainTest
@@ -86,11 +89,14 @@ listOfModels = list([ SVC,
                       KNeighborsClassifier, 
                       RandomForestClassifier,
                       DecisionTreeClassifier, 
-                      LogisticRegression])
+                      LogisticRegression,
+                      KMeans,
+                      AgglomerativeClustering
+                      ])
 
 for classifier in listOfModels:
     
-    if classifier == LogisticRegression:
+    """if classifier == LogisticRegression:
         listOfArgs = list([{"penalty":'l2', "C":0.1},{"penalty":'l2', "C":1},{"penalty":'l2', "C":0.85}])
     elif classifier == KNeighborsClassifier:
         listOfArgs = list([{"n_neighbors": 5},{"n_neighbors": 10},{"n_neighbors": 15}])
@@ -104,7 +110,7 @@ for classifier in listOfModels:
                          {"max_depth":10,"min_samples_leaf":30,"criterion":"log_loss"},
                          {"max_depth":10,"min_samples_leaf":30}])
     else:
-        listOfArgs=list([])
+        listOfArgs=list([])--------- acho que com o grid seacrh isto deixa de ser preciso"""-
         
         
     for dictArgsClassfier in listOfArgs:
