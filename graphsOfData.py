@@ -9,6 +9,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.cluster import SpectralClustering
 import numpy as np
+from sklearn.cluster import KMeans
+from sklearn.cluster import AgglomerativeClustering
+
+from getDataToTrainTest import getDataToTrainTest
+
 
 def graphsOfData(trainData, path):
     """FEATURE ANALYSIS"""
@@ -64,7 +69,7 @@ def graphsOfData(trainData, path):
     
     plt.savefig(path+'/corrmatrix.png')
 
-    """ # Clustering - Spectral clustering
+    """"# Clustering - Spectral clustering
     X = trainData.drop(columns = ['functionId','bug'])
     clustering = SpectralClustering(n_clusters=2,
             assign_labels='kmeans', random_state=0).fit(X)
@@ -72,4 +77,24 @@ def graphsOfData(trainData, path):
     Y = trainData['bug']
     clust_accuracy = (clust_labels == Y)
     clust_accuracy = len(clust_accuracy[clust_accuracy == True])/len(clust_labels)
-    print("Clustering before data feature selection - accuracy:", clust_accuracy) """
+    print("Clustering before data feature selection - accuracy:", clust_accuracy)""""
+
+
+    ##agglomerative clustering
+    X = trainData.drop(columns = ['functionId','bug'])
+    n_clusters = 2
+    clustering = AgglomerativeClustering(n_clusters=n_clusters)
+    clustering.fit(X)
+    labels = clustering.labels_
+    print("Cluster labels:", labels)
+
+    ###kmeans
+    # Create an instance of KMeans
+    X = trainData.drop(columns = ['functionId','bug'])
+    n_clusters = 2
+    kmeans = KMeans(n_clusters=n_clusters)
+    kmeans.fit(X)
+    labels = kmeans.labels_
+    centroids = kmeans.cluster_centers_
+    print("Cluster labels:", labels)
+    print("Centroids:", centroids)
