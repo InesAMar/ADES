@@ -83,7 +83,7 @@ def trainAndTestModel2(typeOfModel:Callable[... , Any], X, y, outFeatures, k_fol
         
         X_train, y_train = X.loc[train_indices], y.loc[train_indices]
         X_test, y_test = X.loc[test_indices], y.loc[test_indices]
-    
+        outFeatures1 = outFeatures.copy() 
         # Feature Selection OR Data Reduction
         
         mean = X_train.mean()                           
@@ -93,16 +93,16 @@ def trainAndTestModel2(typeOfModel:Callable[... , Any], X, y, outFeatures, k_fol
             # z-score transformation
             X_train = (X_train - mean) / std_dev
             X_test = (X_test - mean) / std_dev
-            outFeatures = (outFeatures - mean) / std_dev
+            outFeatures1 = (outFeatures1 - mean) / std_dev
             
         if pca is not None:
             pca_features, nFeat, pca_object = PCAfunction(X_train)
             X_train = pca_features
             X_test = pca_object.transform(X_test)
-            outFeatures = pca_object.transform(outFeatures)
+            outFeatures1 = pca_object.transform(outFeatures1)
             
         if backElim is not None:
-            X_train, X_test, outFeatures = BackwardElimination(X_train, X_test, outFeatures, y_train, 0.05)
+            X_train, X_test, outFeatures1 = BackwardElimination(X_train, X_test, outFeatures1, y_train, 0.05)
         
         if overOrUnder is not None:
             rus = overOrUnder(**dictArgsSamp)
@@ -119,6 +119,8 @@ def trainAndTestModel2(typeOfModel:Callable[... , Any], X, y, outFeatures, k_fol
         bestModel = grid_search.best_estimator_
         bestParams = grid_search.best_params_
         print("Best parameters:", bestParams)
+        
+        bestParams['nFeat'] = X_train.shape[1]
         
         # Test the model
         outProbs = bestModel.predict_proba(X_test)
@@ -137,7 +139,7 @@ def trainAndTestModel2(typeOfModel:Callable[... , Any], X, y, outFeatures, k_fol
     meanf1Score = sum(f1Scores) / len(f1Scores)
     stdf1Score = np.std(f1Scores)
     
-    return bestModel, [meanRocAuc, stdRocAuc], [meanf1Score, stdf1Score], bestParams, outFeatures
+    return bestModel, [meanRocAuc, stdRocAuc], [meanf1Score, stdf1Score], bestParams, outFeatures1
 
 
 def trainAndTestEnsembleModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsClassfier, overOrUnder:Callable[...,Any]=None, dictArgsSamp=None):
