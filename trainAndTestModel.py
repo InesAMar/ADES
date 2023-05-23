@@ -102,7 +102,7 @@ def trainAndTestModel2(typeOfModel:Callable[... , Any], X, y, outFeatures, k_fol
             outFeatures1 = pca_object.transform(outFeatures1)
             
         if backElim:
-            X_train, X_test, outFeatures1 = BackwardElimination(X_train, X_test, outFeatures1, y_train, 0.05)
+            X_train, X_test, outFeatures1 = BackwardElimination(X_train.to_numpy(), X_test.to_numpy(), outFeatures1.to_numpy(), y_train, 0.05)
         
         if overOrUnder is not None:
             rus = overOrUnder(**dictArgsSamp)
