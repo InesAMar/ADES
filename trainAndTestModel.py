@@ -89,19 +89,19 @@ def trainAndTestModel2(typeOfModel:Callable[... , Any], X, y, outFeatures, k_fol
         mean = X_train.mean()                           
         std_dev = X_train.std()
         
-        if transform is not None:
+        if transform:
             # z-score transformation
             X_train = (X_train - mean) / std_dev
             X_test = (X_test - mean) / std_dev
             outFeatures1 = (outFeatures1 - mean) / std_dev
             
-        if pca is not None:
+        if pca:
             pca_features, nFeat, pca_object = PCAfunction(X_train)
             X_train = pca_features
             X_test = pca_object.transform(X_test)
             outFeatures1 = pca_object.transform(outFeatures1)
             
-        if backElim is not None:
+        if backElim:
             X_train, X_test, outFeatures1 = BackwardElimination(X_train, X_test, outFeatures1, y_train, 0.05)
         
         if overOrUnder is not None:

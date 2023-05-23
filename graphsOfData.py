@@ -69,7 +69,8 @@ def graphsOfData(trainData, path):
     
     plt.savefig(path+'/corrmatrix.png')
 
-    """"# Clustering - Spectral clustering
+    """
+    # Clustering - Spectral clustering
     X = trainData.drop(columns = ['functionId','bug'])
     clustering = SpectralClustering(n_clusters=2,
             assign_labels='kmeans', random_state=0).fit(X)
@@ -77,7 +78,8 @@ def graphsOfData(trainData, path):
     Y = trainData['bug']
     clust_accuracy = (clust_labels == Y)
     clust_accuracy = len(clust_accuracy[clust_accuracy == True])/len(clust_labels)
-    print("Clustering before data feature selection - accuracy:", clust_accuracy)""""
+    print("Clustering before data feature selection - accuracy:", clust_accuracy)
+    """
 
 
     ##agglomerative clustering

@@ -96,7 +96,8 @@ def PCAfunction(X):
     pipeline = Pipeline([('pca', pca)])
 
     # Define parameter grid for grid search
-    param_grid = {'pca__n_components': [5, 10, 15, 20, 25]}  # Number of components to try
+    
+    param_grid = {'pca__n_components': np.arange(1,X.shape[1],5).tolist()}  # Number of components to try
 
     # Perform grid search
     grid_search = GridSearchCV(pipeline, param_grid=param_grid, cv=5)
