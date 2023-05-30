@@ -1,0 +1,43 @@
+Data tested;sampling strat;Sampling Args;z-score transform;pca;BackElim;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};True;False;False;LogisticRegression;{'C': 0.1, 'penalty': 'l1', 'solver': 'liblinear', 'nFeat': 25, 'ind': 0};0.57895641295039;0.06020556097183147;0.7463150079675503;0.04128885362321967
+Data tested;sampling strat;Sampling Args;z-score transform;pca;BackElim;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};True;False;True;LogisticRegression;{'C': 0.1, 'penalty': 'l1', 'solver': 'saga', 'nFeat': 24, 'ind': 0};0.5740667015889647;0.06749851382820196;0.7403588113863538;0.04492168676234444
+Data tested;sampling strat;Sampling Args;z-score transform;pca;BackElim;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};True;False;True;LogisticRegression;{'C': 0.5, 'penalty': 'l1', 'solver': 'liblinear', 'nFeat': 6, 'ind': 0};0.602159741128691;0.059772231900448496;0.7622265681587715;0.034613657427358106
+Data tested;sampling strat;Sampling Args;z-score transform;pca;BackElim;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};True;False;True;LogisticRegression;"{'C': 0.5, 'penalty': 'l1', 'solver': 'liblinear', 'nFeat': 6, 'ind': array([23.,  8., 15., 13., 16.,  4.,  9., 15.,  6., 14., 14.,  2.,  0.,
+        0.,  2.,  2.,  3.,  5.,  0.])}";0.602159741128691;0.059772231900448496;0.7622265681587715;0.034613657427358106
+Data tested;sampling strat;Sampling Args;z-score transform;pca;BackElim;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};True;True;False;LogisticRegression;{'C': 0.1, 'penalty': 'l1', 'solver': 'liblinear', 'nFeat': 1, 'ind': 0};0.5555508825108142;0.039265354397269324;0.7269896240764886;0.024449686830051394
+Data tested;sampling strat;Sampling Args;z-score transform;pca;BackElim;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};True;False;True;GaussianNB;{'var_smoothing': 1e-09, 'nFeat': 6, 'ind': 0};0.5343777239709444;0.05225341011465528;0.6979986056786904;0.03258400397311225
+Data tested;sampling strat;Sampling Args;z-score transform;pca;BackElim;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";ADASYN;{'random_state': 42, 'sampling_strategy': 1.0};True;False;True;GaussianNB;{'var_smoothing': 1e-09, 'nFeat': 6, 'ind': 0};0.5303196519678292;0.0456420884113232;0.6968645878603507;0.02912901010414957
+Data tested;sampling strat;Sampling Args;z-score transform;pca;BackElim;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};True;True;False;GaussianNB;{'var_smoothing': 1e-09, 'nFeat': 21, 'ind': 0};0.5032118758434547;0.041905422152724456;0.6804138599159787;0.024467324680274988
+Data tested;sampling strat;Sampling Args;z-score transform;pca;BackElim;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";ADASYN;{'random_state': 42, 'sampling_strategy': 1.0};True;True;False;GaussianNB;{'var_smoothing': 1e-09, 'nFeat': 21, 'ind': 0};0.5419784956422887;0.03908759937585692;0.7093691148775895;0.024853984868057403
+Data tested;sampling strat;Sampling Args;z-score transform;pca;BackElim;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};True;True;True;GaussianNB;{'var_smoothing': 1e-09, 'nFeat': 7, 'ind': 0};0.5345482575783775;0.03476202089631334;0.7017012530783717;0.022552401446670256
+Data tested;sampling strat;Sampling Args;z-score transform;pca;BackElim;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";ADASYN;{'random_state': 42, 'sampling_strategy': 1.0};True;True;True;GaussianNB;{'var_smoothing': 1e-09, 'nFeat': 7, 'ind': 0};0.5302655600653288;0.026759425660921633;0.7034296682601766;0.017083725737980414
+Data tested;sampling strat;Sampling Args;z-score transform;pca;BackElim;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};True;True;True;GaussianNB;{'var_smoothing': 1e-09, 'nFeat': 1, 'ind': 0};0.50283196823033;0.0521920180350417;0.6949279298855571;0.0409889759783947
+Data tested;sampling strat;Sampling Args;z-score transform;pca;BackElim;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";ADASYN;{'random_state': 42, 'sampling_strategy': 1.0};True;True;True;GaussianNB;{'var_smoothing': 1e-09, 'nFeat': 1, 'ind': 0};0.4948731989188353;0.03869558814046404;0.6935336085759815;0.03366231931756614
+Data tested;sampling strat;Sampling Args;z-score transform;pca;BackElim;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};True;True;False;GaussianNB;{'var_smoothing': 1e-09, 'nFeat': 1, 'ind': 0};0.50283196823033;0.0521920180350417;0.6949279298855571;0.0409889759783947
+Data tested;sampling strat;Sampling Args;z-score transform;pca;BackElim;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";ADASYN;{'random_state': 42, 'sampling_strategy': 1.0};True;True;False;GaussianNB;{'var_smoothing': 1e-09, 'nFeat': 1, 'ind': 0};0.4948731989188353;0.03869558814046404;0.6935336085759815;0.03366231931756614
+Data tested;sampling strat;Sampling Args;z-score transform;pca;BackElim;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};True;False;True;GaussianNB;{'var_smoothing': 1e-09, 'nFeat': 1, 'ind': 0};0.582709118838151;0.056236803521131334;0.7332038606403014;0.03131223774863183
+Data tested;sampling strat;Sampling Args;z-score transform;pca;BackElim;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";ADASYN;{'random_state': 42, 'sampling_strategy': 1.0};True;False;True;GaussianNB;{'var_smoothing': 1e-09, 'nFeat': 1, 'ind': 0};0.6064058568800681;0.05987630017032554;0.7545202267130234;0.035475001413986386
+Data tested;sampling strat;Sampling Args;z-score transform;pca;BackElim;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};False;False;True;GaussianNB;{'var_smoothing': 1e-09, 'nFeat': 1, 'ind': 0};0.582709118838151;0.056236803521131334;0.7332038606403014;0.03131223774863183
+Data tested;sampling strat;Sampling Args;z-score transform;pca;BackElim;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";ADASYN;{'random_state': 42, 'sampling_strategy': 1.0};False;False;True;GaussianNB;{'var_smoothing': 1e-09, 'nFeat': 1, 'ind': 0};0.6064058568800681;0.05987630017032554;0.7545202267130234;0.035475001413986386
+Data tested;sampling strat;Sampling Args;z-score transform;pca;BackElim;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};True;False;False;GaussianNB;{'var_smoothing': 1e-09, 'nFeat': 5, 'ind': 0};0.5663263229308005;0.052554700820294876;0.7312391351586266;0.036879866960794774
+Data tested;sampling strat;Sampling Args;z-score transform;pca;BackElim;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";ADASYN;{'random_state': 42, 'sampling_strategy': 1.0};True;False;False;GaussianNB;{'var_smoothing': 1e-09, 'nFeat': 5, 'ind': 0};0.5443790849673202;0.06300409509008428;0.720712914674779;0.040751301417328474

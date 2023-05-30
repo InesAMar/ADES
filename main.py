@@ -27,7 +27,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.cluster import KMeans
 from sklearn.cluster import AgglomerativeClustering
-
+from sklearn.naive_bayes import GaussianNB
 #Homemade Imports
 from getDataToTrainTest import getDataToTrainTest
 from trainAndTestModel import trainAndTestModel2, trainAndTestEnsembleModel
@@ -46,14 +46,15 @@ for i in [False]:
             wantMetrics = j
             wantComplexity = k
             trainData, testData, dataTested = getDataToTrainTest(path, wantFunc, wantMetrics, wantComplexity,1)
+            
             testData.to_csv(os.path.join(compPath,'test_mergedfile2.csv'), index=False)
             
             # Parameters for Model Train and Test 
             k_fold=5
             test_percentage=1/k_fold
             kSmote=5
-                        
-            for x,y,z in [[False,True,False],[True,False,False],[True,True,True],[True,True,False],[True,False,True],[False,True,True]]:
+            
+            for x,y,z in [[False,False,True]]:
         
                 pca = x
                 backElim = y 
@@ -67,21 +68,23 @@ for i in [False]:
                 # Choose Sampling Strategy by choosing the index in "strategy"
                 # List of strategies to test
                 strategies=[RandomUnderSampler,
-                            RandomOverSampler,
-                            SMOTE,
+                           # RandomOverSampler,
+                            #SMOTE,
                             ADASYN]
                 
                 # sampling proportions 
-                proportions = [1.0, 0.8]#, 0.5]
+                proportions = [1.0] #, 0.8]#, 0.5]
                 
                 # List of Models To Test
-                listOfModels = list([ SVC, 
-                                      KNeighborsClassifier, 
-                                      RandomForestClassifier,
-                                      DecisionTreeClassifier, 
-                                      LogisticRegression,
+                listOfModels = list([ #SVC, 
+                                      #KNeighborsClassifier, 
+                                      #RandomForestClassifier,
+                                      #DecisionTreeClassifier, 
+                                      #LogisticRegression
+                                      GaussianNB
                                       #KMeans,
                                       #AgglomerativeClustering
+                                      
                                       ])
                 
                 
@@ -120,6 +123,10 @@ for i in [False]:
                                 listOfArgs={"max_depth":[2,5,10],
                                             "min_samples_leaf":[5,10,15,20,25,30],
                                             "criterion":["entropy","log_loss"]}
+                            elif (classifier == GaussianNB):
+                                listOfArgs = {
+                                    'var_smoothing': [1e-9, 1e-8, 1e-7]
+                                }
                             else:
                                 listOfArgs={}
                             
@@ -127,9 +134,7 @@ for i in [False]:
                             outData = pd.read_csv(os.path.join(compPath,'test_mergedfile2.csv'))
                             outFeatures = outData.drop(columns=['functionId'])
                             testFuncId = outData['functionId']
-                            
                             # Train, Test and obtain main results of classifier
-                            
                             modelToTest, meanRocAUC, meanf1Sco, bestParams, test_features = trainAndTestModel2(classifier, 
                                                                                             trainData.drop(columns=['functionId','bug']), 
                                                                                             trainData['bug'],
@@ -158,11 +163,11 @@ for i in [False]:
                             
                             # Save the data onto csv file for posterior processing
                             dataToSave = pd.DataFrame([dataToSave])
-                            dataToSave.to_csv(os.path.join(devPath,"2final_results.csv"), mode='a',sep=';', index=False, header=True)
+                            dataToSave.to_csv(os.path.join(devPath,"3final_results.csv"), mode='a',sep=';', index=False, header=True)
                             # --> por tudo no mm ficheiro
                         
                             rowcount=0
-                            for row in open(os.path.join(devPath,"2final_results.csv")):
+                            for row in open(os.path.join(devPath,"3final_results.csv")):
                               rowcount+= 1
                             #printing the result
                             print("Number of lines present:-", rowcount) 

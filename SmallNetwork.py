@@ -25,6 +25,7 @@ class SmallNetwork(nn.Module):
         self.batchnorm1 = nn.BatchNorm1d(fc1)
         self.batchnorm2 = nn.BatchNorm1d(fc2)
 
+        # Apply weight initialization
         self.apply(self._init_weights)
         
     def forward(self, x):
@@ -39,12 +40,14 @@ class SmallNetwork(nn.Module):
         x = self.tanHAct(x)
         x = self.dropout(x)
 
+        # Output Layer
         x = self.output(x)
         x = self.softmax(x)
         
         return x
     
     def _init_weights(self, module):
+        # Apply weight initialization
         if isinstance(module, nn.Linear):
             module.weight.data.normal_(mean=0.0, std=1.0)
             if module.bias is not None:

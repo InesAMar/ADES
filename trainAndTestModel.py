@@ -74,37 +74,47 @@ def trainAndTestModel2(typeOfModel:Callable[... , Any], X, y, outFeatures, k_fol
     # Split the data into train and test sets with equal class proportions
     splitter = StratifiedKFold(n_splits=k_fold)
     
+    # Evaluation Metrics and Variables to record data
     rocAUCs=[]
     f1Scores=[]
     bestAuc=0.0
     bestModel = None
     bestParams = None
+    
+    # Implement a k_fold cross-validation technique
     for train_indices, test_indices in splitter.split(X, y):
         
         X_train, y_train = X.loc[train_indices], y.loc[train_indices]
         X_test, y_test = X.loc[test_indices], y.loc[test_indices]
         outFeatures1 = outFeatures.copy() 
-        # Feature Selection OR Data Reduction
         
+        # Implement Feature Selection OR Data Reduction
+        # z-score transformation
         mean = X_train.mean()                           
         std_dev = X_train.std()
         
         if transform:
-            # z-score transformation
+            # Implement z-transform in training and test sets
             X_train = (X_train - mean) / std_dev
             X_test = (X_test - mean) / std_dev
             outFeatures1 = (outFeatures1 - mean) / std_dev
             
         if pca:
+            # Implement PCA in training and test sets
             pca_features, nFeat, pca_object = PCAfunction(X_train)
             X_train = pca_features
             X_test = pca_object.transform(X_test)
             outFeatures1 = pca_object.transform(outFeatures1)
             
         if backElim:
-            X_train, X_test, outFeatures1 = BackwardElimination(X_train.to_numpy(), X_test.to_numpy(), outFeatures1.to_numpy(), y_train, 0.05)
+            # Implement Backwards Elimination in training and test sets
+            if type(X_train)==np.ndarray:
+                X_train, X_test, outFeatures1, ind = BackwardElimination(X_train, X_test, outFeatures1, y_train, 0.05)
+            else: 
+                X_train, X_test, outFeatures1, ind = BackwardElimination(X_train.to_numpy(), X_test.to_numpy(), outFeatures1.to_numpy(), y_train, 0.05)
         
         if overOrUnder is not None:
+            # Implement Under or Oversampling of the training set
             rus = overOrUnder(**dictArgsSamp)
             X_train, y_train = rus.fit_resample(X_train, y_train)
         
@@ -121,7 +131,6 @@ def trainAndTestModel2(typeOfModel:Callable[... , Any], X, y, outFeatures, k_fol
         print("Best parameters:", bestParams)
         
         bestParams['nFeat'] = X_train.shape[1]
-        
         # Test the model
         outProbs = bestModel.predict_proba(X_test)
         outPrediction = np.argmax(outProbs, axis=1)
@@ -141,91 +150,56 @@ def trainAndTestModel2(typeOfModel:Callable[... , Any], X, y, outFeatures, k_fol
     
     return bestModel, [meanRocAuc, stdRocAuc], [meanf1Score, stdf1Score], bestParams, outFeatures1
 
-
-def trainAndTestEnsembleModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsClassfier, overOrUnder:Callable[...,Any]=None, dictArgsSamp=None):
-    # Split the data into train and test sets with equal class proportions
-    splitter = StratifiedKFold(n_splits = k_fold)
-    
-    rocAUCs=[]
-    f1Scores=[]
-    bestAuc=0.0
-    for train_indices, test_indices in splitter.split(X, y):
-        
-        X_train, y_train = X[train_indices], y[train_indices]
-        X_test, y_test = X[test_indices], y[test_indices]
-        
-        if overOrUnder is not None:
-            rus = overOrUnder(**dictArgsSamp)
-    
-            X_train, y_train = rus.fit_resample(X_train, y_train)
-        
-        # define model
-        modelToTrain= typeOfModel(**dictArgsClassfier)
-        
-        ensemble_model = AdaBoostClassifier(modelToTrain, n_estimators=10)
-
-        # fit ensemble of models
-        ensemble_model.fit(X_train, y_train)
-        
-        # Test it
-        outProbs = ensemble_model.predict_proba(X_test)
-        outPrediction = np.argmax(outProbs, axis=1)
-        
-        roc_auc = roc_auc_score(y_test, outPrediction)
-        rocAUCs.append(roc_auc)
-        if roc_auc>bestAuc:
-          bestModel = ensemble_model
-          bestAuc= roc_auc
-
-        f1Score = f1_score(y_test, outPrediction)
-        f1Scores.append(f1Score)
-    
-    meanRocAuc=sum(rocAUCs)/len(rocAUCs)
-    stdRocAuc =np.std(rocAUCs)
-    meanf1Score=sum(f1Scores)/len(f1Scores)
-    stdf1Score =np.std(f1Scores)
-    
-    return bestModel, [meanRocAuc,stdRocAuc], [meanf1Score,stdf1Score]
-
 def trainAndTestNeuralNetwork(model:Callable[... , Any],dictArgs, num_epochs, learning_rate, X, y, k_fold, overOrUnder:Callable[...,Any]=None, dictArgsSamp=None,transform=None):
-    splitter = StratifiedKFold(n_splits = k_fold)
     
-    accuracies=[]
-    rocAUCs=[]
-    f1Scores=[]
-    bestAuc=0.0
+    # Initialize lists to store evaluation metrics
+    accuracies = []
+    rocAUCs = []
+    f1Scores = []
+    bestAuc = 0.0
+    
+    # Perform k-fold cross-validation
+    splitter = StratifiedKFold(n_splits=k_fold)
     for train_indices, test_indices in splitter.split(X, y):
+        # Create a new instance of the model
         modelToTrain = model(**dictArgs)
+        
+        # Split the data into training and testing sets
         X_train, y_train = X.loc[train_indices], y.loc[train_indices]
         X_test, y_test = X.loc[test_indices], y.loc[test_indices]
-    
-        mean = X_train.mean()                           
+        
+        # Perform data transformation if specified
+        mean = X_train.mean()
         std_dev = X_train.std()
         if transform is not None:
-            # z-score transformation
+            # Z-score transformation
             X_train = (X_train - mean) / std_dev
             X_test = (X_test - mean) / std_dev
-            
+        
+        # Perform over-sampling or under-sampling if specified
         if overOrUnder is not None:
             rus = overOrUnder(**dictArgsSamp)
-    
             X_train, y_train = rus.fit_resample(X_train, y_train)
             
+        # Set batch size for DataLoader
         batch_size = 5
         
+        # Set device to GPU if available, otherwise use CPU
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        
         # Define the loss function and optimizer
         criterion = nn.CrossEntropyLoss()
         optimizer = optim.Adam(modelToTrain.parameters(), lr=learning_rate)
         
+        # Convert data to PyTorch tensors
         X_train = torch.tensor(X_train.to_numpy()).float()
         y_train = torch.tensor(y_train.to_numpy()).long()
         X_test = torch.tensor(X_test.to_numpy()).float()
         y_test = torch.tensor(y_test.to_numpy()).long()
         
+        # Create training and testing datasets and data loaders
         train_dataset = torch.utils.data.TensorDataset(X_train, y_train)
         train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-        
         test_dataset = torch.utils.data.TensorDataset(X_test, y_test)
         test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
@@ -235,7 +209,7 @@ def trainAndTestNeuralNetwork(model:Callable[... , Any],dictArgs, num_epochs, le
                 # Move tensors to the configured device
                 images = images.to(device)
                 labels = labels.to(device)
-        
+                
                 # Forward pass
                 outputs = modelToTrain(images)
                 loss = criterion(outputs, labels)
@@ -244,7 +218,6 @@ def trainAndTestNeuralNetwork(model:Callable[... , Any],dictArgs, num_epochs, le
                 optimizer.zero_grad()
                 loss.backward()
                 optimizer.step()
-        
         
         # Test the model
         modelToTrain.eval()  # Evaluation mode (e.g., disables dropout)
@@ -261,26 +234,31 @@ def trainAndTestNeuralNetwork(model:Callable[... , Any],dictArgs, num_epochs, le
                 correct += (predicted == labels).sum().item()
                 outPrediction = np.append(outPrediction, predicted.view(-1))
                 
+            # Calculate accuracy
             accuracy = np.mean(outPrediction == y_test)
             accuracies.append(accuracy)
             print(f'Test Accuracy: {(100 * correct / total):.2f}%')
         
+            # Calculate ROC AUC
             roc_auc = roc_auc_score(y_test, outPrediction)
             rocAUCs.append(roc_auc)
-            if roc_auc>bestAuc:
+            if roc_auc > bestAuc:
                 bestMean = mean 
                 bestStd = std_dev
                 bestModel = modelToTrain
                 bestAuc = roc_auc
     
+            # Calculate F1 score
             f1Score = f1_score(y_test, outPrediction)
             f1Scores.append(f1Score)
     
-    meanAcc=sum(accuracies)/len(accuracies)
-    stdAcc =np.std(accuracies)
-    meanRocAuc=sum(rocAUCs)/len(rocAUCs)
-    stdRocAuc =np.std(rocAUCs)
-    meanf1Score=sum(f1Scores)/len(f1Scores)
-    stdf1Score =np.std(f1Scores)
+    # Calculate mean and standard deviation of evaluation metrics
+    meanAcc = sum(accuracies) / len(accuracies)
+    stdAcc = np.std(accuracies)
+    meanRocAuc = sum(rocAUCs) / len(rocAUCs)
+    stdRocAuc = np.std(rocAUCs)
+    meanf1Score = sum(f1Scores) / len(f1Scores)
+    stdf1Score = np.std(f1Scores)
     
-    return bestModel, [meanAcc,stdAcc], [meanRocAuc,stdRocAuc], [meanf1Score,stdf1Score], bestMean, bestStd
+    # Return the best model, mean and standard deviation of metrics, and the best mean and standard deviation used for transformation
+    return bestModel, [meanAcc, stdAcc], [meanRocAuc, stdRocAuc], [meanf1Score, stdf1Score], bestMean, bestStd
