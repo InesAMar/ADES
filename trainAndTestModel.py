@@ -9,66 +9,12 @@ import numpy as np
 from sklearn.metrics import roc_auc_score, f1_score
 from typing import Callable, Any
 from sklearn.model_selection import StratifiedKFold, GridSearchCV
-from sklearn.ensemble import AdaBoostClassifier
-import pandas as pd
 from getDataToTrainTest import BackwardElimination, PCAfunction
 
 import tqdm
 import torch
 import torch.nn as nn
 import torch.optim as optim
-
-""" def trainAndTestModel(typeOfModel:Callable[... , Any], X, y, k_fold, dictArgsClassfier, overOrUnder:Callable[...,Any]=None, dictArgsSamp=None,transform=None):
-    # Split the data into train and test sets with equal class proportions
-    splitter = StratifiedKFold(n_splits = k_fold)
-    
-    rocAUCs=[]
-    f1Scores=[]
-    bestAuc=0.0
-    for train_indices, test_indices in splitter.split(X, y):
-        
-        X_train, y_train = X.loc[train_indices], y.loc[train_indices]
-        X_test, y_test = X.loc[test_indices], y.loc[test_indices]
-    
-        mean = X_train.mean()                           
-        std_dev = X_train.std()
-        if transform is not None:
-            # z-score transformation
-            X_train = (X_train - mean) / std_dev
-            X_test = (X_test - mean) / std_dev
-            
-        if overOrUnder is not None:
-            rus = overOrUnder(**dictArgsSamp)
-    
-            X_train, y_train = rus.fit_resample(X_train, y_train)
-            
-        # define model
-        modelToTrain= typeOfModel(**dictArgsClassfier)
-        
-        # fit model
-        modelToTrain.fit(X_train, y_train)
-        
-        # Test it
-        outProbs = modelToTrain.predict_proba(X_test)
-        outPrediction = np.argmax(outProbs, axis=1)
-        
-        roc_auc = roc_auc_score(y_test, outPrediction)
-        rocAUCs.append(roc_auc)
-        if roc_auc>bestAuc:
-          bestMean = mean 
-          bestStd = std_dev
-          bestModel = modelToTrain
-          bestAuc = roc_auc
-
-        f1Score = f1_score(y_test, outPrediction)
-        f1Scores.append(f1Score)
-    
-    meanRocAuc=sum(rocAUCs)/len(rocAUCs)
-    stdRocAuc =np.std(rocAUCs)
-    meanf1Score=sum(f1Scores)/len(f1Scores)
-    stdf1Score =np.std(f1Scores)
-    
-    return bestModel, [meanRocAuc,stdRocAuc], [meanf1Score,stdf1Score], bestMean, bestStd """
 
 def trainAndTestModel2(typeOfModel:Callable[... , Any], X, y, outFeatures, k_fold, dictArgsClassifier, overOrUnder:Callable[...,Any]=None, dictArgsSamp=None, transform=None, pca=None, backElim=None):
     # Split the data into train and test sets with equal class proportions
@@ -150,74 +96,76 @@ def trainAndTestModel2(typeOfModel:Callable[... , Any], X, y, outFeatures, k_fol
     
     return bestModel, [meanRocAuc, stdRocAuc], [meanf1Score, stdf1Score], bestParams, outFeatures1
 
+
 def trainAndTestNeuralNetwork(model:Callable[... , Any],dictArgs, num_epochs, learning_rate, X, y, k_fold, overOrUnder:Callable[...,Any]=None, dictArgsSamp=None,transform=None):
+    splitter = StratifiedKFold(n_splits = k_fold)
     
-    # Initialize lists to store evaluation metrics
-    accuracies = []
-    rocAUCs = []
-    f1Scores = []
-    bestAuc = 0.0
-    
-    # Perform k-fold cross-validation
-    splitter = StratifiedKFold(n_splits=k_fold)
+    accuracies=[]
+    rocAUCs=[]
+    f1Scores=[]
+    bestAuc=0.0
     for train_indices, test_indices in splitter.split(X, y):
-        # Create a new instance of the model
-        modelToTrain = model(**dictArgs)
-        
-        # Split the data into training and testing sets
         X_train, y_train = X.loc[train_indices], y.loc[train_indices]
         X_test, y_test = X.loc[test_indices], y.loc[test_indices]
-        
-        # Perform data transformation if specified
-        mean = X_train.mean()
+    
+        mean = X_train.mean()                           
         std_dev = X_train.std()
         if transform is not None:
-            # Z-score transformation
+            # z-score transformation
             X_train = (X_train - mean) / std_dev
             X_test = (X_test - mean) / std_dev
-        
-        # Perform over-sampling or under-sampling if specified
+            
         if overOrUnder is not None:
             rus = overOrUnder(**dictArgsSamp)
+    
             X_train, y_train = rus.fit_resample(X_train, y_train)
             
-        # Set batch size for DataLoader
         batch_size = 5
         
-        # Set device to GPU if available, otherwise use CPU
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         
+        modelToTrain = model(**dictArgs)
+        modelToTrain.to(device)
         # Define the loss function and optimizer
         criterion = nn.CrossEntropyLoss()
         optimizer = optim.Adam(modelToTrain.parameters(), lr=learning_rate)
         
-        # Convert data to PyTorch tensors
         X_train = torch.tensor(X_train.to_numpy()).float()
         y_train = torch.tensor(y_train.to_numpy()).long()
         X_test = torch.tensor(X_test.to_numpy()).float()
         y_test = torch.tensor(y_test.to_numpy()).long()
         
-        # Create training and testing datasets and data loaders
         train_dataset = torch.utils.data.TensorDataset(X_train, y_train)
         train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+        
         test_dataset = torch.utils.data.TensorDataset(X_test, y_test)
         test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
         # Training loop
         for epoch in tqdm.tqdm(range(num_epochs)):
+            correct=0
+            total=0
             for i, (images, labels) in enumerate(train_loader):
                 # Move tensors to the configured device
                 images = images.to(device)
                 labels = labels.to(device)
-                
+        
                 # Forward pass
                 outputs = modelToTrain(images)
                 loss = criterion(outputs, labels)
-        
+
+                _, predicted = torch.max(outputs.data, 1)
+                total += labels.size(0)
+                correct += (predicted == labels).sum().item()
+
                 # Backward and optimize
                 optimizer.zero_grad()
                 loss.backward()
                 optimizer.step()
+            print(f'epoch {epoch}: Train Accuracy: {(100 * correct / total):.2f}%')
+
+
+        
         
         # Test the model
         modelToTrain.eval()  # Evaluation mode (e.g., disables dropout)
@@ -232,33 +180,28 @@ def trainAndTestNeuralNetwork(model:Callable[... , Any],dictArgs, num_epochs, le
                 _, predicted = torch.max(outputs.data, 1)
                 total += labels.size(0)
                 correct += (predicted == labels).sum().item()
-                outPrediction = np.append(outPrediction, predicted.view(-1))
+                outPrediction = np.append(outPrediction, predicted.cpu().view(-1))
                 
-            # Calculate accuracy
             accuracy = np.mean(outPrediction == y_test)
             accuracies.append(accuracy)
             print(f'Test Accuracy: {(100 * correct / total):.2f}%')
         
-            # Calculate ROC AUC
             roc_auc = roc_auc_score(y_test, outPrediction)
             rocAUCs.append(roc_auc)
-            if roc_auc > bestAuc:
+            if roc_auc>bestAuc:
                 bestMean = mean 
                 bestStd = std_dev
                 bestModel = modelToTrain
                 bestAuc = roc_auc
     
-            # Calculate F1 score
             f1Score = f1_score(y_test, outPrediction)
             f1Scores.append(f1Score)
     
-    # Calculate mean and standard deviation of evaluation metrics
-    meanAcc = sum(accuracies) / len(accuracies)
-    stdAcc = np.std(accuracies)
-    meanRocAuc = sum(rocAUCs) / len(rocAUCs)
-    stdRocAuc = np.std(rocAUCs)
-    meanf1Score = sum(f1Scores) / len(f1Scores)
-    stdf1Score = np.std(f1Scores)
+    meanAcc=sum(accuracies)/len(accuracies)
+    stdAcc =np.std(accuracies)
+    meanRocAuc=sum(rocAUCs)/len(rocAUCs)
+    stdRocAuc =np.std(rocAUCs)
+    meanf1Score=sum(f1Scores)/len(f1Scores)
+    stdf1Score =np.std(f1Scores)
     
-    # Return the best model, mean and standard deviation of metrics, and the best mean and standard deviation used for transformation
-    return bestModel, [meanAcc, stdAcc], [meanRocAuc, stdRocAuc], [meanf1Score, stdf1Score], bestMean, bestStd
+    return bestModel, [meanAcc,stdAcc], [meanRocAuc,stdRocAuc], [meanf1Score,stdf1Score], bestMean, bestStd

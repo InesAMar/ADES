@@ -1,4 +1,0 @@
-Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
-"complexity;";ADASYN;notUsed;PCA - NO;all;SVC;{'kernel': 'sigmoid', 'C': 0.7, 'probability': True};0.6278447121820615;0.013252335925852274;0.4110027143970545;0.021338077164922132;0.6199274603138035;0.018636738745391235
-Data tested;sampling strat;kSmote;FeatureSelection;nFeat;Classifier;ClassifierHyperP;Accuracy;Std Acc;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
-"complexity;";ADASYN;notUsed;PCA - NO;all;SVC;{'kernel': 'sigmoid', 'C': 0.7, 'probability': True};0.6265060240963854;0.015026736493068037;0.40754580329683127;0.02604973420769136;0.6167828062257533;0.0229921935918945

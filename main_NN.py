@@ -9,8 +9,6 @@ import os
 import pandas as pd
 import numpy as np
 import torch
-# Feature understanding 
-from sklearn.decomposition import PCA
 
 # Sampler Imports
 from imblearn.over_sampling import SMOTE
@@ -31,12 +29,15 @@ devPath = os.path.join(path, 'dev')
 
 
 # Data Selection, Select which csv's to use (Functions, Metrics, Complexity)
+ # Select by assigning True or False
 wantFunc = True
 wantMetrics = True
 wantComplexity = True
 trainData, testData, dataTested = getDataToTrainTest(path, wantFunc, wantMetrics, wantComplexity,1)
 testData.to_csv(os.path.join(compPath,'test_mergedfile.csv'), index=False)
 
+
+# Get graphs of data for the selected Data
 graphsOfData(trainData, path = path)
 
 # Parameters for Model Train and Test 
@@ -76,6 +77,7 @@ for number in listOfNumber:
     dictArgs= {"inputSize":len(testData.columns)-1,"numClasses": 2,"fc1": number,"fc2": number, "dropout": dropout}
     outData= pd.read_csv(os.path.join(compPath,'test_mergedfile.csv'))
     outPrediction2 = outData['functionId']
+    
     # Train, Test and obtain main results of classifier
     transform = True
     modelToTest, meanAcc, meanRocAUC, meanf1Sco, mean, std = trainAndTestNeuralNetwork(classifier,

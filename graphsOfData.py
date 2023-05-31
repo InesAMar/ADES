@@ -9,11 +9,13 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.cluster import SpectralClustering
 import numpy as np
+import pandas as pd
+
 from sklearn.cluster import KMeans
 from sklearn.cluster import AgglomerativeClustering
-
 from getDataToTrainTest import getDataToTrainTest
-
+from sklearn.metrics import silhouette_score
+from sklearn.model_selection import GridSearchCV
 
 def graphsOfData(trainData, path):
     """FEATURE ANALYSIS"""
@@ -69,34 +71,51 @@ def graphsOfData(trainData, path):
     
     plt.savefig(path+'/corrmatrix.png')
 
-    """
-    # Clustering - Spectral clustering
-    X = trainData.drop(columns = ['functionId','bug'])
-    clustering = SpectralClustering(n_clusters=2,
-            assign_labels='kmeans', random_state=0).fit(X)
-    clust_labels = clustering.labels_
-    Y = trainData['bug']
-    clust_accuracy = (clust_labels == Y)
-    clust_accuracy = len(clust_accuracy[clust_accuracy == True])/len(clust_labels)
-    print("Clustering before data feature selection - accuracy:", clust_accuracy)
-    """
-
-
-    ##agglomerative clustering
-    X = trainData.drop(columns = ['functionId','bug'])
-    n_clusters = 2
-    clustering = AgglomerativeClustering(n_clusters=n_clusters)
-    clustering.fit(X)
-    labels = clustering.labels_
-    print("Cluster labels:", labels)
-
-    ###kmeans
     # Create an instance of KMeans
-    X = trainData.drop(columns = ['functionId','bug'])
-    n_clusters = 2
-    kmeans = KMeans(n_clusters=n_clusters)
-    kmeans.fit(X)
-    labels = kmeans.labels_
-    centroids = kmeans.cluster_centers_
-    print("Cluster labels:", labels)
-    print("Centroids:", centroids)
+    X = trainData.drop(columns = ['functionId','bug']).to_numpy()
+    y= trainData['bug']
+    parameters = {'n_clusters': [2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    clustering= KMeans()
+    #Implement GridSearch of number of clusters with silhouette scoring technique
+    grid_search = GridSearchCV(clustering, parameters, scoring=silhouette_score)
+    grid_search.fit(X)
+    
+    best_n_clusters = grid_search.best_params_['n_clusters']
+    best_labels = grid_search.best_estimator_.labels_
+    print("Best number of clusters:", best_n_clusters)
+    print("Cluster:", best_labels)
+    df = pd.DataFrame({'Cluster': best_labels, 'Bug': y})
+    # Group the DataFrame by Cluster and calculate the counts of bug and non-bug instances
+    grouped_df = df.groupby('Cluster')['Bug'].value_counts().unstack(fill_value=0)
+    # Generate bar plot
+    grouped_df.plot(kind='bar', stacked=True)
+    plt.xlabel('Cluster')
+    plt.ylabel('Counts')
+    plt.title('Bug and Non-Bug Counts in Each Cluster')
+    plt.legend(['Non-Bug', 'Bug'])
+    plt.show()
+
+
+
+    X = trainData.drop(columns=['functionId', 'bug']).to_numpy()
+    y= trainData['bug']
+    parameters = {'n_clusters': [2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    clustering = AgglomerativeClustering()
+    grid_search = GridSearchCV(clustering, parameters, scoring=silhouette_score)
+    grid_search.fit(X)
+    best_n_clusters = grid_search.best_params_['n_clusters']
+    best_labels = grid_search.best_estimator_.labels_
+    print("Best number of clusters:", best_n_clusters)
+    print("Cluster:", best_labels)
+    
+    # Create a DataFrame with cluster labels and ground truth labels
+    df = pd.DataFrame({'Cluster': best_labels, 'Bug': y})
+    # Group the DataFrame by Cluster and calculate the counts of bug and non-bug instances
+    grouped_df = df.groupby('Cluster')['Bug'].value_counts().unstack(fill_value=0)
+    # Generate bar plot
+    grouped_df.plot(kind='bar', stacked=True)
+    plt.xlabel('Cluster')
+    plt.ylabel('Counts')
+    plt.title('Bug and Non-Bug Counts in Each Cluster')
+    plt.legend(['Non-Bug', 'Bug'])
+    plt.show()

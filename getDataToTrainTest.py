@@ -19,8 +19,9 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.pipeline import Pipeline
 import statsmodels.api as sm
 
-def getDataToTrainTest(path, wantFunc: bool, wantMetrics: bool, wantComplexity: bool, transform=None):
-    
+def getDataToTrainTest(path, wantFunc: bool, wantMetrics: bool, wantComplexity: bool):
+    # function that receives the main path and which files to create a dataframe with
+    # all the relevant data
     # Specify the list of CSV files to be included based on the provided flags
     listOfCsv = []
     devPath = os.path.join(path, "dev")
@@ -144,6 +145,10 @@ def PCAfunction(X):
     print("Best number of components:", best_n_components)
 
     return trainData_pca, best_n_components, best_pca
+
+
+
+# Not in use ##########################################################
 
 # LDA:
 def LDAfunction(trainData, n_components):
