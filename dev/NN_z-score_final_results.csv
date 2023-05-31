@@ -1,0 +1,98 @@
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};100;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 20, 'fc2': 20, 'dropout': 0.1};0.5820579100004911;0.025638484483878402;0.7456143054975041;0.01902970135987317
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};100;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 20, 'fc2': 20, 'dropout': 0.1};0.590440083258995;0.044683785557819156;0.749825214717398;0.031086588042659503
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};100;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 20, 'fc2': 20, 'dropout': 0.1};0.5690894963622236;0.048453871345847034;0.7400634123455326;0.03789183758173988
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};100;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 20, 'fc2': 20, 'dropout': 0.1};0.5836985409296515;0.05866746689514089;0.7437387393811473;0.04252391819070655
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};100;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 20, 'fc2': 20, 'dropout': 0.1};0.5682886279632461;0.03345729996338764;0.727395917782261;0.014438972000883836
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};100;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 20, 'fc2': 30, 'dropout': 0.1};0.5731899007761077;0.03717898065289486;0.7365753219526804;0.023874078569959562
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};100;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 30, 'fc2': 20, 'dropout': 0.1};0.5638176638176638;0.033904330942022214;0.7249633315671051;0.02019201780841414
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};100;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 30, 'fc2': 30, 'dropout': 0.1};0.5905713973560581;0.05661144424276526;0.7430090457943108;0.035616417560179074
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 20, 'fc2': 20, 'dropout': 0.1};0.5703618752008887;0.017641938195007336;0.7420530519362506;0.016187710165079205
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 20, 'fc2': 30, 'dropout': 0.1};0.5936405016864787;0.046520051181742794;0.7474617966307094;0.027062994111362444
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 30, 'fc2': 20, 'dropout': 0.1};0.5831199863457929;0.03141279197888065;0.7511291335864562;0.021336759840505135
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 30, 'fc2': 30, 'dropout': 0.1};0.5839899937460914;0.03410347642932358;0.755327143489767;0.027302056463857315
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 20, 'fc2': 20, 'dropout': 0.2};0.5729773698523698;0.02683937108238535;0.744511802463285;0.01901327022619445
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 20, 'fc2': 30, 'dropout': 0.2};0.5822855443217825;0.04615010507463953;0.7487896674554356;0.029310673863470322
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 30, 'fc2': 20, 'dropout': 0.2};0.5710158730158731;0.019127820570527206;0.745538993966667;0.01664240254878434
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 30, 'fc2': 30, 'dropout': 0.2};0.5775792491163618;0.05195901050053221;0.7369722661950874;0.03596500380579233
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomOverSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 20, 'fc2': 20, 'dropout': 0.1};0.5776087678661207;0.032063255798218566;0.743728235260131;0.019213751773153966
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomOverSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 20, 'fc2': 30, 'dropout': 0.1};0.5652426070566282;0.03145545206179771;0.7361203262146659;0.016233528253705245
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomOverSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 30, 'fc2': 20, 'dropout': 0.1};0.5778591667431554;0.04298109726560372;0.7428822558427232;0.0247091708130868
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomOverSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 25, 'numClasses': 2, 'fc1': 20, 'fc2': 10, 'dropout': 0.1};0.48860546209193695;0.03958906713534582;0.684820192120282;0.030320362060407245
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomOverSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 25, 'numClasses': 2, 'fc1': 20, 'fc2': 10, 'dropout': 0.1};0.5502930145192885;0.09348710970496112;0.7252184997283037;0.06052603397690447
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";ADASYN;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 10, 'fc2': 20, 'dropout': 0.1};0.5341826675160009;0.05140410912271515;0.7212878458641171;0.03861522415235378
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";ADASYN;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 10, 'fc2': 30, 'dropout': 0.1};0.5339589384655531;0.04528035211633686;0.7264060915543967;0.03204155857026122
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomOverSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 25, 'numClasses': 2, 'fc1': 20, 'fc2': 20, 'dropout': 0.1};0.5101828005888773;0.11787706574475029;0.6961462284991697;0.08539502704636247
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";ADASYN;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 10, 'fc2': 40, 'dropout': 0.1};0.5590920588272514;0.07019591717594258;0.7375149391568884;0.0458076201665781
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";ADASYN;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 20, 'fc2': 20, 'dropout': 0.1};0.5232837528604118;0.04414581469620512;0.7139183145009417;0.0328158856298467
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 30, 'fc2': 30, 'dropout': 0.1};0.5763137293020407;0.03304689881034875;0.7420537266405911;0.01625908846163376
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 30, 'fc2': 30, 'dropout': 0.1};0.5596837449933244;0.010052144364865822;0.7284232921249992;0.00552836072987792
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 30, 'fc2': 10, 'dropout': 0.1};0.5896546106223526;0.028178851040622083;0.7572758087807503;0.023121931857915688
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 20, 'fc2': 10, 'dropout': 0.1};0.5747531221215433;0.02426808293936749;0.7460009284582508;0.013188911847216541
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 10, 'fc2': 5, 'dropout': 0.1};0.5649050311729737;0.029022733134410027;0.7425711912459442;0.023038223759441655
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 40, 'fc2': 5, 'dropout': 0.1};0.5514384503938542;0.021044799195527018;0.7285726170272442;0.01648158083237516
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 40, 'fc2': 10, 'dropout': 0.1};0.5701341013777818;0.018881870213169907;0.7414705348892231;0.008336883363118214
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 30, 'fc2': 10, 'dropout': 0.1};0.5305465354910589;0.045387267951425385;0.7215684618200341;0.030147192211120253
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};1000;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 30, 'fc2': 10, 'dropout': 0.1};0.5559564046156591;0.038493869606340006;0.7335564064899195;0.024487261726928326
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};250;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 30, 'fc2': 10, 'dropout': 0.1};0.5762458549343795;0.04030787282223549;0.7422173056719328;0.0275646247851887
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};700;SmallNetwork;{'inputSize': 25, 'numClasses': 2, 'fc1': 40, 'fc2': 10, 'dropout': 0.1};0.5277369941796968;0.020228282172003537;0.7209608957812011;0.018222107116509404
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 30, 'fc2': 10, 'dropout': 0.1};0.5886520886520886;0.04295843720798988;0.754358186321349;0.025894656849965392
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};100;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 10, 'fc2': 0, 'dropout': 0.1};0.5481447733103363;0.08098513426913634;0.7196705435923764;0.049833436041536554
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 1.0};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 10, 'fc2': 0, 'dropout': 0.1};0.5811273566756444;0.02881574972808561;0.7414876120850963;0.015767834331143978
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";SMOTE;{'random_state': 42, 'sampling_strategy': 1.0, 'k_neighbors': 3};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 10, 'fc2': 0, 'dropout': 0.1};0.5816253127606339;0.04035016307427486;0.7424092687120539;0.028491867549733298
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";SMOTE;{'random_state': 42, 'sampling_strategy': 0.8, 'k_neighbors': 3};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 20, 'fc2': 0, 'dropout': 0.1};0.5547275596740419;0.02414876951125277;0.718011468415781;0.009968819996689129
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";SMOTE;{'random_state': 42, 'sampling_strategy': 0.8, 'k_neighbors': 3};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 20, 'fc2': 0, 'dropout': 0.1};0.5801682765324099;0.025895225014912773;0.7454245548135935;0.016511724602115353
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 0.8};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 20, 'fc2': 0, 'dropout': 0.1};0.5888299318508426;0.04565587745945109;0.7516687108106694;0.029027970693648496
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 0.8};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 20, 'fc2': 0, 'dropout': 0.1};0.5872554204124801;0.04376610582794548;0.7521910279996534;0.029634121793011243
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 0.8};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 20, 'fc2': 0, 'dropout': 0.1};0.5888299318508426;0.04565587745945109;0.7516687108106694;0.029027970693648496
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"functions;change_metrics;complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 0.8};500;SmallNetwork;{'inputSize': 25, 'numClasses': 2, 'fc1': 20, 'fc2': 0, 'dropout': 0.1};0.5560367548792517;0.01223452091078246;0.72941208736357;0.008358568296161963
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 0.8};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 20, 'fc2': 0, 'dropout': 0.1};0.5872554204124801;0.04376610582794548;0.7521910279996534;0.029634121793011243
+Data tested;sampling strat;Sampling Args;num_epochs;Classifier;ClassifierHyperP;F1-measure;Std F1;ROC-AUC;Std ROC-AUC
+"complexity;";RandomUnderSampler;{'random_state': 42, 'sampling_strategy': 0.8};500;SmallNetwork;{'inputSize': 5, 'numClasses': 2, 'fc1': 20, 'fc2': 0, 'dropout': 0.1};0.5888299318508426;0.04565587745945109;0.7516687108106694;0.029027970693648496
